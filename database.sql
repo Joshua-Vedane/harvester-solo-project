@@ -5,6 +5,8 @@
 -- You must use double quotes in every query that user is in:
 -- ex. SELECT * FROM "user";
 -- Otherwise you will have errors!
+
+
 CREATE TABLE "users" (
 	"id" SERIAL PRIMARY KEY NOT NULL,
 	"user_name" varchar(40) NOT NULL UNIQUE,
@@ -12,13 +14,17 @@ CREATE TABLE "users" (
 	"hourly_rate" DECIMAL(18,2) NOT NULL
 );
 
+
 CREATE TABLE "projects" (
 	"id" SERIAL PRIMARY KEY NOT NULL,
 	"address_1" varchar(60) NOT NULL,
 	"address_2" varchar(60) NOT NULL,
 	"bid" DECIMAL(18,2) NOT NULL DEFAULT '0',
-	"start_date" VARCHAR(20) NOT NULL
+	"start_date" VARCHAR(20) NOT NULL,
+	"image" VARCHAR(200) DEFAULT ''
 );
+
+
 
 CREATE TABLE "categories" (
 	"id" SERIAL PRIMARY KEY NOT NULL,
@@ -42,7 +48,6 @@ CREATE TABLE "user_projects" (
 	
 );
 
--- Dummy Data for intial testing 
 -- create users
 INSERT INTO "users" ("user_name", "password", "hourly_rate")
 VALUES
@@ -67,3 +72,5 @@ INSERT INTO "public"."project_expenses"("project_id", "category_id", "descriptio
 
 -- Add user to project
 INSERT INTO "public"."user_projects"("user_id", "project_id") VALUES(1, 1) RETURNING "id", "user_id", "project_id";
+--
+
