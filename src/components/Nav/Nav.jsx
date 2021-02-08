@@ -13,10 +13,15 @@ function Nav() {
   };
 
   if (user.id != null) {
-    loginLinkData.path = '/user';
-    loginLinkData.text = 'Home';
+    loginLinkData.path = '/dashboard';
+    loginLinkData.text = 'Dashboard';
   }
 
+
+  // Nav will have essentially two views. One for user logged in and one for not logged in. 
+  // Logged in users will have the ability to go anywhere at anytime. Stretch goal to condo render shit based on where they at. 
+
+  //Nav may be contained within a header. I don't know yet. 
   return (
     <div className="nav">
       <Link to="/home">
@@ -29,16 +34,12 @@ function Nav() {
 
         {user.id && (
           <>
-            <Link className="navLink" to="/info">
-              Info Page
-            </Link>
+            
             <LogOutButton className="navLink" />
           </>
         )}
 
-        <Link className="navLink" to="/about">
-          About
-        </Link>
+        
       </div>
     </div>
   );
