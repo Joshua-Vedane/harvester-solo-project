@@ -21,7 +21,8 @@ router.post('/register', (req, res, next) => {
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
   // Take note, I'm guessing hourlyRate comes in as req.body. 
-  const hourlyRate = req.body.hourlyRate
+  const hourlyRate = req.body.hourlyRate;
+  console.log(`hourly`);
 
   const queryText = `INSERT INTO "users" (user_name, password, hourly_rate)
     VALUES ($1, $2, $3) RETURNING id`;

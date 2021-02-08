@@ -13,13 +13,17 @@ import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
-import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
+
+import Dashboard from '../Dashboard/Dashboard';
+
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-
+import DetailsPage from '../DetailsPage/DetailsPage';
+import JoinProject from '../JoinProject/JoinProject';
+import AddProject from '../AddProject/AddProject';
+import AddExpense from '../AddExpense/AddExpense';
+import EditProject from '../EditProject/EditProject';
 import './App.css';
 
 function App() {
@@ -37,71 +41,98 @@ function App() {
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           <Redirect exact from="/" to="/home" />
 
-          {/* Visiting localhost:3000/about will show the about page. */}
-          <Route
-            // shows AboutPage at all times (logged in or not)
-            exact
-            path="/about"
-          >
-            <AboutPage />
-          </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.
-            Visiting localhost:3000/user will show the UserPage if the user is logged in.
+            Visiting localhost:3000/dashboard will show the Dashboard if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
-            Even though it seems like they are different pages, the user is always on localhost:3000/user */}
+            Even though it seems like they are different pages, the user is always on localhost:3000/dashboard */}
+          
           <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
+            // with authRedirect:
+            // - if logged in, redirects to "/dashboard"
+            // - else shows LandingPage at "/home"
             exact
-            path="/user"
+            path="/home"
+            authRedirect="/dashboard"
           >
-            <UserPage />
+            <LandingPage />
           </ProtectedRoute>
-
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path="/info"
-          >
-            <InfoPage />
-          </ProtectedRoute>
+          
 
           {/* When a value is supplied for the authRedirect prop the user will
             be redirected to the path supplied when logged in, otherwise they will
             be taken to the component and path supplied. */}
           <ProtectedRoute
             // with authRedirect:
-            // - if logged in, redirects to "/user"
+            // - if logged in, redirects to "/dashboard"
             // - else shows LoginPage at /login
             exact
             path="/login"
-            authRedirect="/user"
+            authRedirect="/dashboard"
           >
             <LoginPage />
           </ProtectedRoute>
 
           <ProtectedRoute
-            // with authRedirect:
-            // - if logged in, redirects to "/user"
-            // - else shows RegisterPage at "/registration"
-            exact
-            path="/registration"
-            authRedirect="/user"
+              // with authRedirect:
+              // - if logged in, redirects to "/dashboard"
+              // - else shows RegisterPage at "/registration"
+              exact
+              path="/registration"
+              authRedirect="/dashboard"
           >
-            <RegisterPage />
+              <RegisterPage />
           </ProtectedRoute>
 
           <ProtectedRoute
-            // with authRedirect:
-            // - if logged in, redirects to "/user"
-            // - else shows LandingPage at "/home"
+            // logged in shows Dashboard else shows LoginPage
             exact
-            path="/home"
-            authRedirect="/user"
+            path="/dashboard"
           >
-            <LandingPage />
+            <Dashboard />
           </ProtectedRoute>
 
+          <ProtectedRoute
+            // logged in shows Details else shows LoginPage
+            exact
+            path="/details"
+          >
+            <DetailsPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows JoinProject else shows LoginPage
+            exact
+            path="/joinproject"
+          >
+            <JoinProject />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows AddProject else shows LoginPage
+            exact
+            path="/addproject"
+          >
+            <AddProject />
+          </ProtectedRoute>
+
+         <ProtectedRoute
+            // logged in shows AddProject else shows LoginPage
+            exact 
+            path="/addexpense"
+          >
+            <AddExpense />
+          </ProtectedRoute>
+
+         <ProtectedRoute
+            // logged in shows EditProject else shows LoginPage
+            exact 
+            path="/editproject"
+          >
+            <EditProject />
+          </ProtectedRoute>
+
+      
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>
