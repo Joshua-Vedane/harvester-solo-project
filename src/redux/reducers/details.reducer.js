@@ -1,4 +1,4 @@
-//saves the user's pets
+//saves the user's project expenses
 const detailsReducer = (state = [], action) => {
   switch (action.type) {
       case 'SET_DETAILS':

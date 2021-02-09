@@ -19,6 +19,6 @@ export default function* rootSaga() {
     registrationSaga(),
     userSaga(),
     projectSaga(),
-    detailsSaga(),
+    detailsSaga()
   ]);
 }

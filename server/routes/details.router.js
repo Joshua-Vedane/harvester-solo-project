@@ -7,9 +7,11 @@ const {rejectUnauthenticated} = require('../modules/authentication-middleware.js
 router.get('/:id', (req, res) => {
   if(req.isAuthenticated()){
     //do the things
-    let queryText = ``
+    const projectId = req.params.id
+    let queryText = `SELECT * FROM "project_expenses" 
+    WHERE "project_id" = $1;`
 
-    pool.query(queryText, [req.user.id])
+    pool.query(queryText, [projectId])
     .then((result) => {
       res.send(result.rows)
     }).catch((error) => {
