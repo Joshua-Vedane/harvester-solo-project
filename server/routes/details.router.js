@@ -3,16 +3,15 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const {rejectUnauthenticated} = require('../modules/authentication-middleware.js')
 
-//Get all project information
-router.get('/', (req, res) => {
+//Get all project details
+router.get('/:id', (req, res) => {
   if(req.isAuthenticated()){
     //do the things
-    let queryText = `SELECT "projects".id, "projects".address_1, "projects".address_2, "projects".bid, "projects".start_date, "projects".image FROM "users" 
-    JOIN "user_projects" ON  "users".id = "user_projects".user_id
-    JOIN "projects" ON "projects".id = "user_projects".project_id
-    WHERE "users".id = $1;
-    `
-    pool.query(queryText, [req.user.id])
+    const projectId = req.params.id
+    let queryText = `SELECT * FROM "project_expenses" 
+    WHERE "project_id" = $1;`
+
+    pool.query(queryText, [projectId])
     .then((result) => {
       res.send(result.rows)
     }).catch((error) => {

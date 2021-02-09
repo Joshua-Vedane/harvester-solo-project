@@ -1,17 +1,28 @@
 import React from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
-import {useSelector, useEffect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import DashboardItems from '../DashboardItems/DashboardItems';
 import { Grid } from '@material-ui/core';
+import { useEffect } from 'react';
 
 function UserPage() {
+  const dispatch = useDispatch();
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
+  const projects = useSelector((store) => store.projects);
 
-  useEffect(() => dispatchEvent({type:'GET_PROJECTS'}), []);
+  console.log(projects);
+  useEffect(() => dispatch({type:'GET_PROJECTS'}), []);
   return (
     <Grid container spacing={4} justify="center">
-      <DashboardItems></DashboardItems>
+      {projects.map((project) => {
+        return(
+          <Grid item xs={12} key={project.id}>
+            <DashboardItems project={project} />
+          </Grid>
+        )
+      })}
+
 
     </Grid>
       
