@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
-import pets from './pet.reducer'
+import projects from './project.reducer';
+import details from './details.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -12,7 +13,8 @@ import pets from './pet.reducer'
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
-  pets, // holds all the user's pets
+  projects, // holds all the user's projects
+  details, // holds project details(expenses) user selected
 });
 
 export default rootReducer;

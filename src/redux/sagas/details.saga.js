@@ -3,23 +3,22 @@ import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 
 
 // Get all users pets and save in redux
-function* fetchPets() {
+function* getDetails() {
     try {
-        //go and get pets
+        //go and get expenses
         //the cookie comes along automatically
-        const response = yield axios.get('/api/pets');
+        const response = yield axios.get('/api/details');
         console.log(response.data)
         //save in pet reducer!
-        yield put({type: 'SET_PETS', payload: response.data })
+        yield put({type: 'SET_DETAILS', payload: response.data })
 
     } catch (err) {
         console.error(err)
     }
 }
 
-function* petSaga() {
-    yield takeEvery('FETCH_PETS', fetchPets);
+function* detailsSaga() {
+    yield takeEvery('GET_DETAILS', getDetails);
 }
 
-export default petSaga;
-
+export default detailsSaga;

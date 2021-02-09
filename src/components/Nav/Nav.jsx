@@ -53,16 +53,19 @@ function Nav() {
                 <AiIcons.AiOutlineClose />
               </Link>
             </li>
-            {SidebarData.map((item, index) => {
+            {/* If user.id is a thing, show the stuff. otherwise nah.  */}
+           {user.id != null ? 
+            SidebarData.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>
                   <Link to={item.path}>
-
                     <span>{item.title}</span>
                   </Link>
                 </li>
               );
-            })}
+            })
+            : ''
+          }
             <li className='nav-text'>
               <Link onClick={() => dispatch({type: 'LOGOUT'})}  to='/home'>
                 <span>Log Out</span>
