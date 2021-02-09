@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import './LandingPage.css';
+// import './LandingPage.css';
+import {Grid, Box, Button} from '@material-ui/core';
 
 // CUSTOM COMPONENTS
 import RegisterForm from '../RegisterForm/RegisterForm';
@@ -17,15 +18,23 @@ function LandingPage() {
 
 
     
-    <div className="grid-col grid-col_4">
-      <RegisterForm />
-      <center>
-        <h4>Already a Member?</h4>
-        <button className="btn btn_sizeSm" onClick={onLogin}>
-          Login
-            </button>
-      </center>
-    </div>
+    <Grid container spacing={1} >
+      <Grid item xs={12}>
+        <RegisterForm/>
+      </Grid>
+      <Grid item xs={12}>
+        <Box display='flex' flexDirection='column' justifyContent='center' alignItems='center'>
+          <h4>Already a Member?</h4>
+          <Button  
+          onClick={onLogin}
+          variant='contained'
+          color='secondary'>
+            Login
+          </Button>
+        </Box>
+      </Grid>
+      
+    </Grid>
 
   );
 }
