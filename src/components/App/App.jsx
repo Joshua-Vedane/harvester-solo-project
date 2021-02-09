@@ -36,6 +36,7 @@ function App() {
   return (
     <Router>
       <div>
+        {/* for the navbar, could do a condo render with if (user.id = null) then don't display the navBar?  */}
         <Nav />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}

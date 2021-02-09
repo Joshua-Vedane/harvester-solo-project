@@ -1,3 +1,5 @@
+// Navigation menu based on https://github.com/briancodex/react-sidebar-v1 
+
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';

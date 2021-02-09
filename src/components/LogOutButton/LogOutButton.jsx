@@ -1,3 +1,5 @@
+// LOGOUT BUTTON NO LONGER USED IN THIS PROJECT. 
+
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
