@@ -6,7 +6,7 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
@@ -28,6 +28,7 @@ import './App.css';
 
 function App() {
   const dispatch = useDispatch();
+  const user = useSelector((store) => store.user);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
@@ -36,7 +37,9 @@ function App() {
   return (
     <Router>
       <div>
-        {/* for the navbar, could do a condo render with if (user.id = null) then don't display the navBar?  */}
+        {/* for the navbar, could do a condo render with if (user.id = null) then don't display the navBar? 
+        NOPE. Will need to do this in the component.  */}
+
         <Nav />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}

@@ -37,9 +37,14 @@ function Nav() {
   return (
     <>
       <div className='navbar'>
+        <div>
           <Link to='#' className='menu-bars'>
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
+        </div>
+        <div className='nav-heading-container'>
+          <h2>Harvester</h2>
+        </div>
       </div>
       <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
           <ul className='nav-menu-items' onClick={showSidebar}>
@@ -59,12 +64,13 @@ function Nav() {
               );
             })}
             <li className='nav-text'>
-              <Link onClick={() => dispatch({type: 'LOGOUT'})} to='/home'>
+              <Link onClick={() => dispatch({type: 'LOGOUT'})}  to='/home'>
                 <span>Log Out</span>
               </Link>
             </li>
           </ul>
         </nav>
+       
     </>
     
     // <div className="nav">
