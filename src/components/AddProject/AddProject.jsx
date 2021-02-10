@@ -17,7 +17,32 @@ function AddProject() {
   const [dateStart, setDateStart] = useState('');
 
   const handleSubmit = () => {
-    console.log('submit clicked');
+    const action = {
+      type: 'ADD_PROJECT',
+      payload: {
+        address1: address1,
+        address2: address2, 
+        bidTotal: bidTotal,
+        imageURL: imageURL,
+        dateStart: dateStart,
+      }
+    }
+    dispatch(action);
+    clearInputs();
+    // should I stay or should I go? 
+  }
+
+  const handleCancel = () => {
+    clearInputs();
+    history.push('/dashboard');
+  }
+
+  const clearInputs = () => {
+    setAddress1('');
+    setAddress2('');
+    setBidTotal('');
+    setImageURL('');
+    setDateStart('');
   }
 
   return (
@@ -104,7 +129,7 @@ function AddProject() {
             <Button
               color="secondary"
               variant="contained"
-              // onClick={handleCancel}
+              onClick={handleCancel}
             >Cancel
             </Button>
             <Button

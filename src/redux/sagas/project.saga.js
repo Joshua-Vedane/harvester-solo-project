@@ -29,9 +29,22 @@ function* getAllProjects() {
   }
 }
 
+function* addProject(action) {
+  try {
+    const newProject = action.payload;
+    yield axios.post('/api/projects', newProject);
+    // yield put to get things? It'll load on component load anyways...? GET_PROJECTS? GET_ALL_PROJECTS?
+    yield put({type: 'GET_PROJECTS'})
+    yield put({type: 'GET_ALL_PROJECTS'})
+  }catch(error){
+    console.error(error);
+  }
+}
+
 function* projectSaga() {
     yield takeEvery('GET_PROJECTS', getProjects);
     yield takeEvery('GET_ALL_PROJECTS', getAllProjects);
+    yield takeEvery('ADD_PROJECT', addProject);
     
 }
 

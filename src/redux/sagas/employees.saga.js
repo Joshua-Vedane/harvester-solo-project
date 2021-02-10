@@ -20,9 +20,11 @@ function* getEmployees() {
 function* addEmployeeToProject(action){
   try{
     // send employee & project to router
-    const newAddition = action.payload
-    yield axios.post('/api/employees', newAddition)
+    const newAddition = action.payload;
+    yield axios.post('/api/employees', newAddition);
     // yield put ({type: ''}) I don't know if there really is anything to get? 
+    yield put({type: 'GET_PROJECTS'})
+    yield put({type: 'GET_ALL_PROJECTS'})
 
   }catch(error){
     console.error(error);
