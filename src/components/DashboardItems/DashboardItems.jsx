@@ -18,6 +18,8 @@ function DashboardItems({project}) {
   //Clicking on Edit Button routes to Edit Project
   // don't need payload. just need to get projects reducer b/c this project is already there. 
   function handleEdit () {
+    // Get details for clicked project 
+    dispatch({type: 'GET_PROJECT_DETAILS', payload})
     history.push('/editproject')
   }
 
