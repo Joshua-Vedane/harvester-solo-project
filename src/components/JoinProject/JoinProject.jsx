@@ -10,15 +10,20 @@ function JoinProject() {
   const dispatch = useDispatch();
   const history = useHistory();
   
-
-  // get employees Reducer
   // Get projects Reducer
-
+  const allProjects = useSelector((store) => store.allProjects)
+  // get employees Reducer
+  const employees = useSelector((store) => store.employees)
   // local state for inputs (selects)
+  const [employeeId, setEmployeeId ] = useState('');
+  const [projectId, setProjectId ] = useState('');
+
+  console.log('employeeId is now:', employeeId);
+  console.log('projectId is now:', projectId);
 
   
   // Get employees
-  // useEffect(() => dispatch({ type: 'GET_EMPLOYEES' }), []);
+  useEffect(() => dispatch({ type: 'GET_EMPLOYEES' }), []);
   // Get projects (all of them)
   useEffect(() => dispatch({ type: 'GET_ALL_PROJECTS' }), []);
   return (
@@ -32,16 +37,44 @@ function JoinProject() {
     </Box>
     <Card className="join-card">
       <CardContent>
-        <InputLabel
-          id="employee-number-label"
-        >Employee Number</InputLabel>
-        <Select
-          labelId="employee-number"
-          fullWidth={true}
-          id="employee-number-select"
-        >
+        <Box>
+          <InputLabel
+            id="employee-number-label"
+            >Employee</InputLabel>
+          <Select
+            labelId="employee-number"
+            fullWidth={true}
+            id="employee-number-select"
+            onChange={(event) => setEmployeeId(event.target.value)}
+            // NEED TO CHANGE THIS TO AN ACTUAL FUNCTION TO KEEP REACT FROM YELLING
+            >
+            {employees.map((employee) => {
+              return(
+                <MenuItem key={employee.id} value={employee.id}>{employee.user_name}</MenuItem>
+                )
+              })}
+          </Select>
+        </Box>
 
-        </Select>
+        <Box>
+          <InputLabel
+            id="project-number-label"
+            >Project</InputLabel>
+          <Select
+            labelId="project-number"
+            fullWidth={true}
+            id="project-number-select"
+            onChange={(event) => setProjectId(event.target.value)}
+            >
+            {allProjects.map((project) => {
+              return(
+                <MenuItem key={project.id} value={project.id}>{project.address_1}</MenuItem>
+                )
+              })}
+          </Select>
+        </Box>
+
+        {/* 
         <Box>
           <TextField
             label="Movie Title"
@@ -60,6 +93,7 @@ function JoinProject() {
             // onChange={(event) => setMovieImage(event.target.value)}
           />
         </Box>
+          */}
       </CardContent>
       <Box display="flex" alignItems="center" justifyContent="center">
         <CardActions>
