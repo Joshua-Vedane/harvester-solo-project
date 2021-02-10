@@ -2,7 +2,7 @@ import axios from 'axios';
 import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 
 
-// Get all users pets and save in redux
+// Get expenses for project clicked on
 function* getDetails(action) {
     try {
       const projectId = action.payload;
