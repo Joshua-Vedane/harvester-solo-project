@@ -3,6 +3,7 @@ import errors from './errors.reducer';
 import user from './user.reducer';
 import projects from './project.reducer';
 import details from './details.reducer';
+import allProjects from './allProjects.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   projects, // holds all the user's projects
   details, // holds project details(expenses) user selected
+  allProjects, // contains all projects in DB
 });
 
 export default rootReducer;
