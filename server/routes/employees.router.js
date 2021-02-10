@@ -18,14 +18,21 @@ router.get('/', (req, res) => {
   }else {
     res.sendStatus(403);
   }
-
 });
 
-/**
- * POST route template
- */
+// add an employee to a project
 router.post('/', (req, res) => {
-  // POST route code here
+  if(req.isAuthenticated()){
+    let queryText = `INSERT INTO "user_projects"("user_id", "project_id")
+                     VALUES ($1, $2) RETURNING "id";`;
+    pool.query(queryText, [req.body.employeeId, req.body.projectId])
+      .then(response => {
+        res.sendStatus(201);
+      }).catch(error => {
+        console.log(error);
+        res.sendStatus(500);
+      })
+  }
 });
 
 module.exports = router;

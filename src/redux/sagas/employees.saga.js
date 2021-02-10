@@ -16,8 +16,22 @@ function* getEmployees() {
     }
 }
 
+// Add an employee to the project
+function* addEmployeeToProject(action){
+  try{
+    // send employee & project to router
+    const newAddition = action.payload
+    yield axios.post('/api/employees', newAddition)
+    // yield put ({type: ''}) I don't know if there really is anything to get? 
+
+  }catch(error){
+    console.error(error);
+  }
+}
+
 function* employeesSaga() {
     yield takeEvery('GET_EMPLOYEES', getEmployees);
+    yield takeEvery('ADD_EMPLOYEE_TO_PROJECT', addEmployeeToProject)
 }
 
 export default employeesSaga;
