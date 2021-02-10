@@ -43,11 +43,23 @@ router.get('/all', (req, res) => {
   }
 });
 
-/**
- * POST route template
- */
+// address1: address1,
+//         address2: address2, 
+//         bidTotal: bidTotal,
+//         imageURL: imageURL,
+//         dateStart: dateStart,
+
+//add project to DB 
 router.post('/', (req, res) => {
-  // POST route code here
+  
+  const queryText = `INSERT INTO "projects" ("address_1", "address_2", "bid", "start_date", "image")
+                    VALUES ($1, $2, $3, $4, $5);`;
+  pool.query(queryText, [req.body.address1, req.body.address2, req.body.bidTotal, req.body.dateStart, req.body.imageURL ])
+    .then(() => res.sendStatus(201))
+    .catch((error) => {
+      console.log('Failed adding project', error);
+      res.sendStatus(500);
+    })
 });
 
 module.exports = router;
