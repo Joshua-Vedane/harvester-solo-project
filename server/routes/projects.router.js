@@ -43,11 +43,6 @@ router.get('/all', (req, res) => {
   }
 });
 
-// address1: address1,
-//         address2: address2, 
-//         bidTotal: bidTotal,
-//         imageURL: imageURL,
-//         dateStart: dateStart,
 
 //add project to DB 
 router.post('/', (req, res) => {
@@ -61,5 +56,17 @@ router.post('/', (req, res) => {
       res.sendStatus(500);
     })
 });
+
+//delete project
+router.delete('/delete/:id', (req, res) => {
+  const projectId = req.params.id;
+  const queryText = `DELETE FROM "projects" WHERE "id"= $1; `;
+  pool.query(queryText, [projectId])
+  .then(() => res.sendStatus(200))
+  .catch((err) => {
+    console.log('failed to delete', err);
+    res.sendStatus(500);
+  })
+})
 
 module.exports = router;

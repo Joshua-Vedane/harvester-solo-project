@@ -17,12 +17,19 @@ function EditProject() {
       type: 'UPDATE_PROJECT_INFO',
       payload: projectInfo
     })
+    dispatch({type: 'CLEAR_PROJECT_INFO'});
     history.push('/dashboard');
-    console.log('submit clicked');
   }
 
   function handleCancel () {
-    console.log('cancel clicked');
+    dispatch({type: 'CLEAR_PROJECT_INFO'});
+    history.push('/dashboard');
+  }
+
+  function handleDelete(){
+    dispatch({type: 'DELETE_PROJECT', payload: page.id})
+    //should be an alert to confirm this action. 
+    history.push('/dashboard')
   }
 
 
@@ -45,14 +52,12 @@ function EditProject() {
       {projectInfo.id && (
 
       
-      <Card className="add-project-card">
+      <Card className="edit-project-card">
         
         <CardContent>
         <Box m={2}>
             <FormControl variant='outlined' fullWidth={true}>
-              {/* type: 'SET_LOCK',
-                payload: { ...lock, nickname: event.target.value },
-              }) */}
+             
               <TextField
                 label="Address 1"
                 InputLabelProps={{ shrink: projectInfo.address_1 }}
@@ -140,6 +145,14 @@ function EditProject() {
             >Submit
             </Button>
           </CardActions>
+        </Box>
+        <Box m={4} display="flex" justifyContent="center">
+          <Button
+            color='secondary'
+            variant='contained'
+            onClick={handleDelete}
+          >Delete
+          </Button>
         </Box>
       </Card>
       )}

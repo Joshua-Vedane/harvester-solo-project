@@ -6,6 +6,7 @@ import expenses from './expenses.reducer';
 import allProjects from './allProjects.reducer';
 import employees from './employees.reducer';
 import projectInfo from './projectInfo.reducer';
+import categories from './category.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   allProjects, // contains all projects in DB
   employees, // holds all employees from the DB
   projectInfo,
+  categories,
 });
 
 export default rootReducer;

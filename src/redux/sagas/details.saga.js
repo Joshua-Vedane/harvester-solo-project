@@ -48,10 +48,13 @@ function* putProjectInfo(action) {
 }
 
 
+
+
 function* detailsSaga() {
     yield takeEvery('GET_EXPENSES', getExpenses);
     yield takeEvery('GET_PROJECT_INFO', getProjectInfo)
     yield takeEvery('UPDATE_PROJECT_INFO', putProjectInfo)
+    
 }
 
 export default detailsSaga;

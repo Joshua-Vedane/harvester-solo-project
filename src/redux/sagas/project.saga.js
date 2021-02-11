@@ -41,10 +41,22 @@ function* addProject(action) {
   }
 }
 
+function* deleteProject(action){
+  try{
+    const projectId = action.payload;
+    yield axios.delete(`/api/projects/delete/${projectId}`)
+    yield put({type: 'GET_PROJECTS'})
+    yield put({type: 'GET_ALL_PROJECTS'})
+  }catch(error){
+    console.error(error)
+  }
+}
+
 function* projectSaga() {
     yield takeEvery('GET_PROJECTS', getProjects);
     yield takeEvery('GET_ALL_PROJECTS', getAllProjects);
     yield takeEvery('ADD_PROJECT', addProject);
+    yield takeEvery('DELETE_PROJECT', deleteProject)
     
 }
 
