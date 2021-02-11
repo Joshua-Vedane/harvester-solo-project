@@ -5,30 +5,26 @@ import {Card, Button, Box, Typography, } from '@material-ui/core';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-// Basic functional component structure for React with default state
-// value setup. When making a new component be sure to replace the
-// component name TemplateFunction with the name for the new component.
+
+
 function DashboardItems({project}) {
+
   const dispatch = useDispatch();
   const history = useHistory();
-  // Using hooks we're creating local state for a "heading" variable with
-  // a default value of 'Functional Component'
-  const store = useSelector((store) => store);
+  
 
   //Clicking on Edit Button routes to Edit Project
-  
   function handleEdit () {
     // Get details for clicked project 
-    dispatch({type: 'GET_PROJECT_DETAILS', payload: project.id})
-    history.push('/editproject')
+    // dispatch({type: 'GET_PROJECT_DETAILS', payload: project.id})
+    history.push({pathname:`/editproject/${project.id}`})
   }
 
   //Clicking on Details Button routes to Project Details
-  // Needs to dispatch an action to go get the expenses from DB with payload of project id
-  //Project Details from this page will be visible by Details page via projectsReducer
+  // This will be similiar to the above. 
   function handleDetails () {
-    dispatch({type:'GET_DETAILS', payload: project.id})
-    history.push('/details')
+
+    history.push({pathname: `/details/${project.id}`})
   }
 
   useEffect(() => dispatch({type:'GET_PROJECTS'}), []);
@@ -55,7 +51,7 @@ function DashboardItems({project}) {
           </Typography>
         </Box>
         <Box display='flex' justifyContent='center' alignItems='center'>
-          <Box>
+          <Box >
             <Button onClick={handleEdit} variant='contained'>Edit</Button>
           </Box>
           <Box>

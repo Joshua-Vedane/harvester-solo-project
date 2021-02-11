@@ -1,11 +1,11 @@
 //saves the user's project expenses
-const detailsReducer = (state = [], action) => {
+const expensesReducer = (state = [], action) => {
   switch (action.type) {
-      case 'SET_DETAILS':
+      case 'SET_EXPENSES':
           return action.payload;
       default:
           return state;
   }
 }
 
-export default detailsReducer;
+export default expensesReducer;

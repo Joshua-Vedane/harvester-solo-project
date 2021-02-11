@@ -4,7 +4,7 @@ const router = express.Router();
 const {rejectUnauthenticated} = require('../modules/authentication-middleware.js')
 
 //Get all project details
-router.get('/:id', (req, res) => {
+router.get('/expenses/:id', (req, res) => {
   if(req.isAuthenticated()){
     //do the things
     const projectId = req.params.id
@@ -25,7 +25,7 @@ router.get('/:id', (req, res) => {
 });
 
 // gets project details for clicked on project
-router.get('/project/:id', (req, res) => {
+router.get('/projectInfo/:id', (req, res) => {
   if(req.isAuthenticated()){
     //do the things
     const projectId = req.params.id
