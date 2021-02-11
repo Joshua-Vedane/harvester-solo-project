@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, TextField, Button, Card, CardContent, CardActions, InputLabel, FormControl, Select, MenuItem } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 
 function AddExpense() {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  
+  const allProjects = useSelector((store) => store.allProjects)
+  const employees = useSelector((store) => store.employees)
+  const categories = useSelector((store) => store.categories)
   
   
-  const [heading, setHeading] = useState('Add Expense');
-
+  useEffect(() => 
+   dispatch({ type: 'GET_EMPLOYEES' }),
+   dispatch({ type: 'GET_ALL_PROJECTS' }),
+   dispatch({ type: 'GET_CATEGORIES' }), []);
   return (
     <>
       <Box height={50} p={3}>
