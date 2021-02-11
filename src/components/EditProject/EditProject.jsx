@@ -8,33 +8,16 @@ function EditProject() {
   const page = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
-  // Using hooks we're creating local state for a "heading" variable with
-  // a default value of 'Functional Component'
-  // useEffect(() => dispatch({type:'GET_PROJECTS'}), []);
-  // useEffect(() => {const projectDetails = useSelector((store) => store.projectDetails)});
 
   const projectInfo = useSelector((store) => store.projectInfo)
 
-    // NOT STORING IN STATE. Dispatch to editProjectInfo Reducer
-  // const [projectInfo, setProjectInfo] = useState({
-  //   address1: projectDetails.address_1,
-  //   address2: projectDetails.address_2,
-  //   bid: projectDetails.bid,
-  //   startDate: projectDetails.start_date,
-  //   image: projectDetails.image
-  // })
-
-  //This will be handled in the reducer? 
-  function handleChange(event) {
-    const value = event.target.value;
-    setProjectInfo ({
-      ...projectInfo,
-      [event.target.name] : value
-    });
-  }
-
   function handleSubmit () {
     // send dispatch to update database with edited project information. 
+    dispatch({
+      type: 'UPDATE_PROJECT_INFO',
+      payload: projectInfo
+    })
+    history.push('/dashboard');
     console.log('submit clicked');
   }
 
@@ -46,6 +29,7 @@ function EditProject() {
   useEffect(() => {
     dispatch({type: 'GET_PROJECT_INFO', payload: page.id})
   }, [])
+
   return (
     <>
       <Box height={50} p={3}>
@@ -66,7 +50,9 @@ function EditProject() {
         <CardContent>
         <Box m={2}>
             <FormControl variant='outlined' fullWidth={true}>
-              
+              {/* type: 'SET_LOCK',
+                payload: { ...lock, nickname: event.target.value },
+              }) */}
               <TextField
                 label="Address 1"
                 InputLabelProps={{ shrink: projectInfo.address_1 }}
@@ -75,7 +61,7 @@ function EditProject() {
                 name="address1"
                 variant='outlined'
                 value={projectInfo.address_1}
-                onChange={handleChange}
+                onChange={(event) => {dispatch({type: 'SET_PROJECT_INFO', payload: {...projectInfo, address_1 : event.target.value}})}}
               >
               </TextField>
             </FormControl>
@@ -90,7 +76,7 @@ function EditProject() {
                 variant='outlined'
                 value={projectInfo.address_2}
                 
-                onChange={handleChange}
+                onChange={(event) => {dispatch({type: 'SET_PROJECT_INFO', payload: {...projectInfo, address_2 : event.target.value}})}}
               >
               </TextField>
             </FormControl>
@@ -104,7 +90,7 @@ function EditProject() {
                 name="bid"
                 variant='outlined'
                 value={projectInfo.bid}
-                onChange={handleChange}
+                onChange={(event) => {dispatch({type: 'SET_PROJECT_INFO', payload: {...projectInfo, bid : event.target.value}})}}
               >
               </TextField>
             </FormControl>
@@ -118,7 +104,7 @@ function EditProject() {
                 name="image"
                 variant='outlined'
                 value={projectInfo.image}
-                onChange={handleChange}
+                onChange={(event) => {dispatch({type: 'SET_PROJECT_INFO', payload: {...projectInfo, image : event.target.value}})}}
               >
               </TextField>
             </FormControl>
@@ -132,7 +118,7 @@ function EditProject() {
                 name="startDate"
                 variant='outlined'
                 value={projectInfo.start_date}
-                onChange={handleChange}
+                onChange={(event) => {dispatch({type: 'SET_PROJECT_INFO', payload: {...projectInfo, start_date : event.target.value}})}}
               >
               </TextField>
             </FormControl>

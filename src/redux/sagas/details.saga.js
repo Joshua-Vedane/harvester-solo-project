@@ -35,10 +35,23 @@ function* getProjectInfo(action) {
   }
 }
 
+function* putProjectInfo(action) {
+  try {
+    const updatedProject = action.payload;
+    yield axios.put(`/api/details/updateProject/${action.payload.id}`, updatedProject)
+    yield put({type: 'GET_PROJECTS'})
+    yield put({type: 'GET_ALL_PROJECTS'})
+  }
+  catch(err){
+    console.error(err);
+  }
+}
+
 
 function* detailsSaga() {
     yield takeEvery('GET_EXPENSES', getExpenses);
     yield takeEvery('GET_PROJECT_INFO', getProjectInfo)
+    yield takeEvery('UPDATE_PROJECT_INFO', putProjectInfo)
 }
 
 export default detailsSaga;

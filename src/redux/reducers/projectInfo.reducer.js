@@ -3,6 +3,7 @@ const projectInfoReducer = (state = {}, action) => {
   switch (action.type) {
       case 'SET_PROJECT_INFO':
           return action.payload;
+        
       default:
           return state;
   }
