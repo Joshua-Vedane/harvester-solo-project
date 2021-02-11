@@ -24,6 +24,27 @@ router.get('/:id', (req, res) => {
   }
 });
 
+// gets project details for clicked on project
+router.get('/project/:id', (req, res) => {
+  if(req.isAuthenticated()){
+    //do the things
+    const projectId = req.params.id
+    let queryText = `SELECT * FROM "projects" 
+    WHERE "id" = $1;`
+
+    pool.query(queryText, [projectId])
+    .then((result) => {
+      res.send(result.rows)
+    }).catch((error) => {
+      console.log(error);
+      res.sendStatus(500);
+    })
+  }else {
+    //don't do the things
+    res.sendStatus(403);
+  }
+});
+
 /**
  * POST route template
  */

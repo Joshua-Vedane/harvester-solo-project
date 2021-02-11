@@ -16,10 +16,10 @@ function DashboardItems({project}) {
   const store = useSelector((store) => store);
 
   //Clicking on Edit Button routes to Edit Project
-  // don't need payload. just need to get projects reducer b/c this project is already there. 
+  
   function handleEdit () {
     // Get details for clicked project 
-    dispatch({type: 'GET_PROJECT_DETAILS', payload})
+    dispatch({type: 'GET_PROJECT_DETAILS', payload: project.id})
     history.push('/editproject')
   }
 
