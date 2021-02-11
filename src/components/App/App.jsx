@@ -105,6 +105,15 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
+            // logged in shows DetailsProject else shows LoginPage
+            exact 
+            path="/details/:id"
+          >
+            <DetailsPage />
+          </ProtectedRoute>
+
+
+          <ProtectedRoute
             // logged in shows JoinProject else shows LoginPage
             exact
             path="/joinproject"
@@ -132,6 +141,14 @@ function App() {
             // logged in shows EditProject else shows LoginPage
             exact 
             path="/editproject"
+          >
+            <EditProject />
+          </ProtectedRoute>
+
+         <ProtectedRoute
+            // logged in shows EditProject else shows LoginPage
+            exact 
+            path="/editproject/:id"
           >
             <EditProject />
           </ProtectedRoute>
