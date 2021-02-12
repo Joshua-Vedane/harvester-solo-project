@@ -19,6 +19,11 @@ function AddExpense() {
   const [employeeId, setEmployeeId] = useState('');
   const [projectId, setProjectId] = useState('');
   const [categoryId, setCategoryId] = useState('');
+  const [hours, setHours] = useState(0);
+  const [hourlyRate, setHourlyRate] = useState(0);
+
+  // const [employeeWageHours, setEmployeeWageHours] = useState({id: 0,hourlyRate: 0});
+  
  
 
   const handleSubmit = () => {
@@ -37,11 +42,28 @@ function AddExpense() {
     // history.push('/dashboard'); ?? Really want to re-route? 
   }
 
+  const handleChange=(event) => {
+
+    // setEmployeeWageHours(
+    //   {
+    //     id: event.target.value.id,
+    //     hourlyRate: event.target.value.hourly_rate,
+
+    //   }
+    //)
+    setEmployeeId(event.target.value.id);
+    setHourlyRate(event.target.value.hourly_rate);
+
+  }
+
    useEffect(() => {
     dispatch({ type: 'GET_EMPLOYEES' });
     dispatch({ type: 'GET_ALL_PROJECTS' });
     dispatch({ type: 'GET_CATEGORIES' });
   }, []);
+
+  console.log('hourly rate is now ', hourlyRate);
+  console.log('employeeId is now', employeeId);
 
   return (
     <>
@@ -97,6 +119,9 @@ function AddExpense() {
             </Select>
           </FormControl>
         </Box>
+        {/* If category selected is 'wage' (4), show something different.  */}
+      {categoryId != '4' ? 
+        <>
         <Box m={2}>
             <FormControl variant='outlined' fullWidth={true}>
              
@@ -141,7 +166,79 @@ function AddExpense() {
               </TextField>
             </FormControl>
           </Box>
-          
+        </>
+        : 
+        // HEYYYYYYYYYYYYYYYHEYYYYYYYYYYYYYYYHEYYYYYYYYYYYYYYYHEYYYYYYYYYYYYYYYHEYYYYYYYYYYYYYYYHEYYYYYYYYYYYYYYYHEYYYYYYYYYYYYYYY
+        <>
+        <Box m={2}>
+            <FormControl variant='outlined' fullWidth={true}>
+              <InputLabel
+                id="employee-select-label"
+              >Employee</InputLabel>
+              <Select
+                labelId="employee-select"
+                fullWidth={true}
+                id="employee-select-input"
+                
+                // onChange={(event) => {setEmployeeId(event.target.value.id)}}
+                // onChange={(event) => {setHourlyRate(event.target.value.hourly_rate)}}
+                onChange={ handleChange}
+                
+              >
+                {employees.map((employee) => {
+                  return (
+                    <MenuItem key={employee.id} value={{id: employee.id, hourly_rate: employee.hourly_rate}}>{employee.user_name}</MenuItem>
+                  )
+                })}
+              </Select>
+            </FormControl>
+        </Box>
+        <Box m={2}>
+            <FormControl variant='outlined' fullWidth={true}>
+              <TextField
+                label='Date'
+                fullWidth={true}
+                id="date-input"
+                name="date"
+                variant='outlined'
+                value={date}
+                onChange={(event) => setDate(event.target.value)}
+              >
+              </TextField>
+            </FormControl>
+          </Box>
+          <Box m={2}>
+            <FormControl variant = 'outlined' fullWidth={true}>
+              <TextField
+                label= 'Hours'
+                fullWidth={true}
+                id='hours-input'
+                name='hours'
+                variant='outlined'
+                value={hours}
+                onChange={(event) => setHours(event.target.value)}
+              >
+
+              </TextField>
+            </FormControl>
+          </Box>
+          <Box m={2}>
+            <FormControl variant = 'outlined' fullWidth={true}>
+              <TextField
+                label= 'TOTAL'
+                fullWidth={true}
+                id='total-input'
+                name='total'
+                variant='outlined'
+                value={total}
+                // needs to pre-fill with result of wages
+                // onChange={handleHourlyTotal}
+              >
+              </TextField>
+            </FormControl>
+          </Box>
+        </>
+        }
         </CardContent>
         <Box display="flex" justifyContent="center">
           <CardActions>
