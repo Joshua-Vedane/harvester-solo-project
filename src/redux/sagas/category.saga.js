@@ -6,6 +6,7 @@ import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 function* getCategories() {
     try {
         //go and get categories
+        console.log('you made it to getCategories Saga');
         const response = yield axios.get(`/api/categories`);
         console.log(response.data)
         //save in categories reducer!

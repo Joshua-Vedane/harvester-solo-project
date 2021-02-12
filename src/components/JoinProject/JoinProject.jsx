@@ -58,6 +58,7 @@ function JoinProject() {
   useEffect(() => dispatch({ type: 'GET_EMPLOYEES' }), []);
   // Get projects (all of them)
   useEffect(() => dispatch({ type: 'GET_ALL_PROJECTS' }), []);
+  
   return (
     <>
       <Box height={50} p={3}>

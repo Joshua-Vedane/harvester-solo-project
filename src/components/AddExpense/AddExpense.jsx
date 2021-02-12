@@ -1,7 +1,12 @@
+// This is disgusting and I know it. If I have time, I will break forms into separate components.
+// Ideally, wages would be completely separate from other expenses, getting their own view and table... 
+// Also, employeeId is not needed...
+
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, TextField, Button, Card, CardContent, CardActions, InputLabel, FormControl, Select, MenuItem } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import './AddExpense.css'
 
 
 function AddExpense() {
@@ -12,11 +17,73 @@ function AddExpense() {
   const employees = useSelector((store) => store.employees)
   const categories = useSelector((store) => store.categories)
   
-  
-  useEffect(() => 
-   dispatch({ type: 'GET_EMPLOYEES' }),
-   dispatch({ type: 'GET_ALL_PROJECTS' }),
-   dispatch({ type: 'GET_CATEGORIES' }), []);
+  const [description, setDescription] = useState('');
+  const [date, setDate] = useState('');
+  const [total, setTotal] = useState('');
+  const [employeeId, setEmployeeId] = useState('');
+  const [projectId, setProjectId] = useState('');
+  const [categoryId, setCategoryId] = useState('');
+  const [hours, setHours] = useState(0);
+  const [hourlyRate, setHourlyRate] = useState(0);
+
+
+  const handleWageSubmit = () => {
+    const action = {
+      type: 'ADD_EXPENSE',
+      payload: {
+        project_id: projectId,
+        category_id: categoryId,
+        description: description, 
+        date: date, 
+        total: (Number(hours)* Number(hourlyRate))
+      }
+    }
+    dispatch(action);
+    clearInputs();
+    // history.push('/dashboard'); ?? Really want to re-route? 
+  }
+  const handleSubmit = () => {
+    const action = {
+      type: 'ADD_EXPENSE',
+      payload: {
+        project_id: projectId,
+        category_id: categoryId,
+        description: description, 
+        date: date, 
+        total: total
+      }
+    }
+    dispatch(action);
+    clearInputs();
+  }
+
+  const handleCancel = () => {
+    clearInputs();
+    history.push('/dashboard');
+  }
+
+  const handleChange=(event) => {
+    setEmployeeId(event.target.value.id);
+    setHourlyRate(event.target.value.hourly_rate);
+    setDescription(event.target.value.user_name);
+  }
+
+  const clearInputs = () => {
+    setProjectId('');
+    setCategoryId('');
+    setEmployeeId('');
+    setDescription('');
+    setDate('');
+    setHours('');
+    setTotal('');
+  }
+
+   useEffect(() => {
+    dispatch({ type: 'GET_EMPLOYEES' });
+    dispatch({ type: 'GET_ALL_PROJECTS' });
+    dispatch({ type: 'GET_CATEGORIES' });
+  }, []);
+
   return (
     <>
       <Box height={50} p={3}>
@@ -40,7 +107,7 @@ function AddExpense() {
               fullWidth={true}
               id="project-number-select"
               value={projectId}
-              onChange={handleProjectSelect}
+              onChange={(event) => setProjectId(event.target.value) }
             >
               {allProjects.map((project) => {
                 return (
@@ -54,35 +121,38 @@ function AddExpense() {
           <FormControl variant='outlined' fullWidth={true} m={1}>
 
             <InputLabel
-              id="project-number-label"
+              id="category-id-label"
             >Select Category</InputLabel>
             <Select
-              labelId="project-number"
+              labelId="category-id"
               fullWidth={true}
-              id="project-number-select"
-              value={projectId}
-              onChange={handleProjectSelect}
+              id="category-id-select"
+              value={categoryId}
+              onChange={(event) => setCategoryId(event.target.value) }
             >
-              {allProjects.map((project) => {
+              {categories.map((category) => {
                 return (
-                  <MenuItem key={project.id} value={project.id}>{project.address_1}</MenuItem>
+                  <MenuItem key={category.id} value={category.id}>{category.category_name}</MenuItem>
                 )
               })}
             </Select>
           </FormControl>
         </Box>
+        {/* If category selected is 'wage' (4), show something different.  */}
+      {categoryId != '4' ? 
+        <>
         <Box m={2}>
             <FormControl variant='outlined' fullWidth={true}>
              
               <TextField
                 label="Description"
-                InputLabelProps={{ shrink: projectInfo.address_1 }}
+                // InputLabelProps={{ shrink: projectInfo.address_1 }}
                 fullWidth={true}
-                id="address1-input"
-                name="address1"
+                id="description-input"
+                name="description"
                 variant='outlined'
-                value={projectInfo.address_1}
-                onChange={(event) => {dispatch({type: 'SET_PROJECT_INFO', payload: {...projectInfo, address_1 : event.target.value}})}}
+                value={description}
+                onChange={(event) => setDescription(event.target.value)}
               >
               </TextField>
             </FormControl>
@@ -92,12 +162,11 @@ function AddExpense() {
               <TextField
                 label='Date'
                 fullWidth={true}
-                id="address2-input"
-                name="address2"
+                id="date-input"
+                name="date"
                 variant='outlined'
-                value={projectInfo.address_2}
-                
-                onChange={(event) => {dispatch({type: 'SET_PROJECT_INFO', payload: {...projectInfo, address_2 : event.target.value}})}}
+                value={date}
+                onChange={(event) => setDate(event.target.value)}
               >
               </TextField>
             </FormControl>
@@ -107,16 +176,86 @@ function AddExpense() {
               <TextField
                 label='Total'
                 fullWidth={true}
-                id="bid-total-input"
-                name="bid"
+                id="total-input"
+                name="total"
                 variant='outlined'
-                value={projectInfo.bid}
-                onChange={(event) => {dispatch({type: 'SET_PROJECT_INFO', payload: {...projectInfo, bid : event.target.value}})}}
+                value={total}
+                onChange={(event) => setTotal(event.target.value)}
               >
               </TextField>
             </FormControl>
           </Box>
-          
+        </>
+        : 
+        // HEYYYYYYYYYYYYYYYHEYYYYYYYYYYYYYYYHEYYYYYYYYYYYYYYYHEYYYYYYYYYYYYYYYHEYYYYYYYYYYYYYYYHEYYYYYYYYYYYYYYYHEYYYYYYYYYYYYYYY
+        <>
+        <Box m={2}>
+            <FormControl variant='outlined' fullWidth={true}>
+              <InputLabel
+                id="employee-select-label"
+              >Employee</InputLabel>
+              <Select
+                labelId="employee-select"
+                fullWidth={true}
+                id="employee-select-input"
+                
+                // onChange={(event) => {setEmployeeId(event.target.value.id)}}
+                // onChange={(event) => {setHourlyRate(event.target.value.hourly_rate)}}
+                onChange={ handleChange}
+                
+              >
+                {employees.map((employee) => {
+                  return (
+                    // <MenuItem key={employee.id} value={{id: employee.id, hourly_rate: employee.hourly_rate}}>{employee.user_name}</MenuItem>
+                    <MenuItem key={employee.id} value={employee}>{employee.user_name}</MenuItem>
+                  )
+                })}
+              </Select>
+            </FormControl>
+        </Box>
+        <Box m={2}>
+            <FormControl variant='outlined' fullWidth={true}>
+              <TextField
+                label='Date'
+                fullWidth={true}
+                id="date-input"
+                name="date"
+                variant='outlined'
+                value={date}
+                onChange={(event) => setDate(event.target.value)}
+              >
+              </TextField>
+            </FormControl>
+          </Box>
+          <Box m={2}>
+            <FormControl variant = 'outlined' fullWidth={true}>
+              <TextField
+                label= 'Hours'
+                fullWidth={true}
+                id='hours-input'
+                name='hours'
+                variant='outlined'
+                value={hours}
+                onChange={(event) => setHours(event.target.value)}
+              >
+              </TextField>
+            </FormControl>
+          </Box>
+          <Box m={2}>
+            <FormControl variant = 'outlined' fullWidth={true}>
+              <TextField
+                label= 'TOTAL'
+                fullWidth={true}
+                id='total-input'
+                name='total'
+                variant='outlined'
+                value={Number(hours) * Number(hourlyRate)}
+              >
+              </TextField>
+            </FormControl>
+          </Box>
+        </>
+        }
         </CardContent>
         <Box display="flex" justifyContent="center">
           <CardActions>
@@ -126,14 +265,25 @@ function AddExpense() {
               onClick={handleCancel}
             >Cancel
             </Button>
+            {categoryId != '4' ? 
             <Button
               color="primary"
               variant="contained"
               onClick={handleSubmit}
             >Submit
             </Button>
+            :
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={handleWageSubmit}
+            >Submit
+            </Button>
+            } 
           </CardActions>
         </Box>
+
+      
       </Card>
     </>
   );
