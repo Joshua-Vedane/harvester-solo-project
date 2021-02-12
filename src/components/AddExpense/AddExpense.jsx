@@ -1,3 +1,7 @@
+// This is disgusting and I know it. If I have time, I will break forms into separate components.
+// Ideally, wages would be completely separate from other expenses, getting their own view and table... 
+// Also, employeeId is not needed...
+
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, TextField, Button, Card, CardContent, CardActions, InputLabel, FormControl, Select, MenuItem } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,10 +26,22 @@ function AddExpense() {
   const [hours, setHours] = useState(0);
   const [hourlyRate, setHourlyRate] = useState(0);
 
-  // const [employeeWageHours, setEmployeeWageHours] = useState({id: 0,hourlyRate: 0});
-  
- 
 
+  const handleWageSubmit = () => {
+    const action = {
+      type: 'ADD_EXPENSE',
+      payload: {
+        project_id: projectId,
+        category_id: categoryId,
+        description: description, 
+        date: date, 
+        total: (Number(hours)* Number(hourlyRate))
+      }
+    }
+    dispatch(action);
+    clearInputs();
+    // history.push('/dashboard'); ?? Really want to re-route? 
+  }
   const handleSubmit = () => {
     const action = {
       type: 'ADD_EXPENSE',
@@ -38,22 +54,29 @@ function AddExpense() {
       }
     }
     dispatch(action);
-    // clearInputs();
-    // history.push('/dashboard'); ?? Really want to re-route? 
+    clearInputs();
+  }
+
+  const handleCancel = () => {
+    clearInputs();
+    history.push('/dashboard');
   }
 
   const handleChange=(event) => {
-
-    // setEmployeeWageHours(
-    //   {
-    //     id: event.target.value.id,
-    //     hourlyRate: event.target.value.hourly_rate,
-
-    //   }
-    //)
     setEmployeeId(event.target.value.id);
     setHourlyRate(event.target.value.hourly_rate);
+    setDescription(event.target.value.user_name);
+  }
 
+  const clearInputs = () => {
+    setProjectId('');
+    setCategoryId('');
+    setEmployeeId('');
+    setDescription('');
+    setDate('');
+    setHours('');
+    setTotal('');
+    
   }
 
    useEffect(() => {
@@ -61,9 +84,6 @@ function AddExpense() {
     dispatch({ type: 'GET_ALL_PROJECTS' });
     dispatch({ type: 'GET_CATEGORIES' });
   }, []);
-
-  console.log('hourly rate is now ', hourlyRate);
-  console.log('employeeId is now', employeeId);
 
   return (
     <>
@@ -187,7 +207,8 @@ function AddExpense() {
               >
                 {employees.map((employee) => {
                   return (
-                    <MenuItem key={employee.id} value={{id: employee.id, hourly_rate: employee.hourly_rate}}>{employee.user_name}</MenuItem>
+                    // <MenuItem key={employee.id} value={{id: employee.id, hourly_rate: employee.hourly_rate}}>{employee.user_name}</MenuItem>
+                    <MenuItem key={employee.id} value={employee}>{employee.user_name}</MenuItem>
                   )
                 })}
               </Select>
@@ -218,7 +239,6 @@ function AddExpense() {
                 value={hours}
                 onChange={(event) => setHours(event.target.value)}
               >
-
               </TextField>
             </FormControl>
           </Box>
@@ -230,9 +250,7 @@ function AddExpense() {
                 id='total-input'
                 name='total'
                 variant='outlined'
-                value={total}
-                // needs to pre-fill with result of wages
-                // onChange={handleHourlyTotal}
+                value={Number(hours) * Number(hourlyRate)}
               >
               </TextField>
             </FormControl>
@@ -245,17 +263,28 @@ function AddExpense() {
             <Button
               color="secondary"
               variant="contained"
-              // onClick={handleCancel}
+              onClick={handleCancel}
             >Cancel
             </Button>
+            {categoryId != '4' ? 
             <Button
               color="primary"
               variant="contained"
               onClick={handleSubmit}
             >Submit
             </Button>
+            :
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={handleWageSubmit}
+            >Submit
+            </Button>
+            } 
           </CardActions>
         </Box>
+
+      
       </Card>
     </>
   );
