@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, TextField, Button, Card, CardContent, CardActions, InputLabel, FormControl, Select, MenuItem } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import './AddExpense.css'
 
 
 function AddExpense() {
@@ -12,11 +13,36 @@ function AddExpense() {
   const employees = useSelector((store) => store.employees)
   const categories = useSelector((store) => store.categories)
   
-  
-  useEffect(() => 
-   dispatch({ type: 'GET_EMPLOYEES' }),
-   dispatch({ type: 'GET_ALL_PROJECTS' }),
-   dispatch({ type: 'GET_CATEGORIES' }), []);
+  const [description, setDescription] = useState('');
+  const [date, setDate] = useState('');
+  const [total, setTotal] = useState('');
+  const [employeeId, setEmployeeId] = useState('');
+  const [projectId, setProjectId] = useState('');
+  const [categoryId, setCategoryId] = useState('');
+ 
+
+  const handleSubmit = () => {
+    const action = {
+      type: 'ADD_EXPENSE',
+      payload: {
+        project_id: projectId,
+        category_id: categoryId,
+        description: description, 
+        date: date, 
+        total: total
+      }
+    }
+    dispatch(action);
+    // clearInputs();
+    // history.push('/dashboard'); ?? Really want to re-route? 
+  }
+
+   useEffect(() => {
+    dispatch({ type: 'GET_EMPLOYEES' });
+    dispatch({ type: 'GET_ALL_PROJECTS' });
+    dispatch({ type: 'GET_CATEGORIES' });
+  }, []);
+
   return (
     <>
       <Box height={50} p={3}>
@@ -40,7 +66,7 @@ function AddExpense() {
               fullWidth={true}
               id="project-number-select"
               value={projectId}
-              onChange={handleProjectSelect}
+              onChange={(event) => setProjectId(event.target.value) }
             >
               {allProjects.map((project) => {
                 return (
@@ -54,18 +80,18 @@ function AddExpense() {
           <FormControl variant='outlined' fullWidth={true} m={1}>
 
             <InputLabel
-              id="project-number-label"
+              id="category-id-label"
             >Select Category</InputLabel>
             <Select
-              labelId="project-number"
+              labelId="category-id"
               fullWidth={true}
-              id="project-number-select"
-              value={projectId}
-              onChange={handleProjectSelect}
+              id="category-id-select"
+              value={categoryId}
+              onChange={(event) => setCategoryId(event.target.value) }
             >
-              {allProjects.map((project) => {
+              {categories.map((category) => {
                 return (
-                  <MenuItem key={project.id} value={project.id}>{project.address_1}</MenuItem>
+                  <MenuItem key={category.id} value={category.id}>{category.category_name}</MenuItem>
                 )
               })}
             </Select>
@@ -76,13 +102,13 @@ function AddExpense() {
              
               <TextField
                 label="Description"
-                InputLabelProps={{ shrink: projectInfo.address_1 }}
+                // InputLabelProps={{ shrink: projectInfo.address_1 }}
                 fullWidth={true}
-                id="address1-input"
-                name="address1"
+                id="description-input"
+                name="description"
                 variant='outlined'
-                value={projectInfo.address_1}
-                onChange={(event) => {dispatch({type: 'SET_PROJECT_INFO', payload: {...projectInfo, address_1 : event.target.value}})}}
+                value={description}
+                onChange={(event) => setDescription(event.target.value)}
               >
               </TextField>
             </FormControl>
@@ -92,12 +118,11 @@ function AddExpense() {
               <TextField
                 label='Date'
                 fullWidth={true}
-                id="address2-input"
-                name="address2"
+                id="date-input"
+                name="date"
                 variant='outlined'
-                value={projectInfo.address_2}
-                
-                onChange={(event) => {dispatch({type: 'SET_PROJECT_INFO', payload: {...projectInfo, address_2 : event.target.value}})}}
+                value={date}
+                onChange={(event) => setDate(event.target.value)}
               >
               </TextField>
             </FormControl>
@@ -107,11 +132,11 @@ function AddExpense() {
               <TextField
                 label='Total'
                 fullWidth={true}
-                id="bid-total-input"
-                name="bid"
+                id="total-input"
+                name="total"
                 variant='outlined'
-                value={projectInfo.bid}
-                onChange={(event) => {dispatch({type: 'SET_PROJECT_INFO', payload: {...projectInfo, bid : event.target.value}})}}
+                value={total}
+                onChange={(event) => setTotal(event.target.value)}
               >
               </TextField>
             </FormControl>
@@ -123,7 +148,7 @@ function AddExpense() {
             <Button
               color="secondary"
               variant="contained"
-              onClick={handleCancel}
+              // onClick={handleCancel}
             >Cancel
             </Button>
             <Button

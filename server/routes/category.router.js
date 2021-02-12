@@ -5,9 +5,10 @@ const {rejectUnauthenticated} = require('../modules/authentication-middleware.js
 
 
 //Get ALL the categories 
-router.get('/all', (req, res) => {
+router.get('/', (req, res) => {
   if(req.isAuthenticated()){
     //do the things
+    
     let queryText = `SELECT * FROM "categories";`;
     pool.query(queryText)
     .then((result) => {
