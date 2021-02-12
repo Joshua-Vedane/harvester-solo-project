@@ -282,8 +282,6 @@ function AddExpense() {
             } 
           </CardActions>
         </Box>
-
-      
       </Card>
     </>
   );
