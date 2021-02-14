@@ -1,25 +1,80 @@
-import React, { useState } from 'react';
-import {useSelector} from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { Box, Typography, TextField, Button, Card, CardContent, CardActions, InputLabel, FormControl, Select, MenuItem } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useParams  } from 'react-router-dom';
+import './DetailsPage.css';
+
 import DetailsTable from '../DetailsTable/DetailsTable'
 
-// Basic functional component structure for React with default state
-// value setup. When making a new component be sure to replace the
-// component name TemplateFunction with the name for the new component.
+
 function DetailsPage(props) {
-  // Using hooks we're creating local state for a "heading" variable with
-  // a default value of 'Functional Component'
-  const store = useSelector((store) => store);
-  const [heading, setHeading] = useState('DetailsPage');
+  const page = useParams();
+  const dispatch = useDispatch();
+  const history = useHistory();
 
+  const projectInfo = useSelector((store) => store.projectInfo)
+  //expenses will go into the detailsTable component. 
+  const expenses = useSelector((store) => store.expenses)
+
+  const sumExpenses = () => {
+    let total = 0;
+    for (const expense of expenses) {
+      let expenseCost = Number(expense.total)
+      total += expenseCost;
+    }
+    console.log(total);
+    return total.toFixed(2); 
+  }
+  // sumExpenses();
+
+  useEffect(() => {
+    dispatch({type: 'GET_EXPENSES', payload: page.id})
+    dispatch({type: 'GET_PROJECT_INFO', payload: page.id})
+  }, [])
   return (
-    <div>
-      <h2>{heading}</h2>
-      {/* Here will go details about the project */}
-      {/* Here will go the table. Map over expenses and get them in the table here. Give it the mapped expense as props */}
+    <>
+    {projectInfo.address_1 && (
+      <Box className='details-container'>
 
-      <DetailsTable/>
-      {/* Display math stuff below */}
-    </div>
+        <Box className='project-info-container'>
+          <Box className='project-info'>
+            <Typography variant='h6' align='center'>
+              {projectInfo.address_1}
+            </Typography>
+            <Typography variant='h6' align='center'>
+              {projectInfo.address_2}
+            </Typography>
+            <Typography variant='h6' align='center'>
+              Start Date: {projectInfo.start_date}
+            </Typography>
+            
+          </Box>
+          <Box className='project-image'>
+            <img src={projectInfo.image} alt=""/>
+          </Box>
+        </Box>
+        
+
+        <DetailsTable>
+
+        </DetailsTable>
+
+        <Box display='flex' flexDirection='column' alignItems='flex-end'>
+          <Typography variant='h6' >
+            Bid: $ {projectInfo.bid}
+          </Typography>
+          <Typography variant='h6' >
+            {sumExpenses()}
+          </Typography>
+          <Typography variant='h6' >
+            {projectInfo.bid - sumExpenses()} 
+          </Typography>
+
+        </Box>
+      
+      </Box>
+    )}  
+    </>
   );
 }
 
