@@ -7,7 +7,7 @@ import './DetailsPage.css';
 import DetailsTable from '../DetailsTable/DetailsTable'
 
 
-function DetailsPage(props) {
+function DetailsPage() {
   const page = useParams();
   const dispatch = useDispatch();
   const history = useHistory();

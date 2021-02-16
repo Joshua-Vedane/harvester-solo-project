@@ -48,7 +48,8 @@ function EditProject() {
       </Box>
     {/* Only renders the card when projectDetails is a thing */}
       
-
+      {/* The catch is we need both sides to be true.  */}
+      {/* If projectInfo.id AND the html stuff both = truthy, then do thae shit.  */}
       {projectInfo.id && (
 
       
