@@ -19,6 +19,10 @@ function DetailsTable() {
   const handleModalClose = () => {
     setModalOpen(false);
   }
+
+  const handleDelete=(id) => {
+    dispatch({type: 'DELETE_EXPENSE', payload: id})
+  }
   
   return (
     <>
@@ -43,7 +47,7 @@ function DetailsTable() {
                 <TableCell>{expense.date}</TableCell>
                 <TableCell>{expense.total}</TableCell>
                 <TableCell><Button  onClick={() => handleModalOpen(expense.id)}>Edit</Button></TableCell>
-                <TableCell><Button>Delete</Button></TableCell>
+                <TableCell><Button onClick={()=>handleDelete(expense.id)}>Delete</Button></TableCell>
               </TableRow>
             )
           })}

@@ -84,7 +84,24 @@ router.put('/edit', (req,res) => {
   }else{
     res.sendStatus(403);
   }
-  
+})
+
+//delete expense
+router.delete('/delete/:id', (req, res) => {
+  if(req.isAuthenticated()){
+    const expenseId = req.params.id;
+    const queryText = `DELETE FROM "project_expenses" WHERE "id"= $1 RETURNING "project_id"; `;
+    pool.query(queryText, [expenseId])
+    .then((result) => {
+      // send back the project_id to get all expenses for that project in the saga
+      res.send({project_id: result.rows[0].project_id});
+    }).catch((err) => {
+      console.log('failed to delete', err);
+      res.sendStatus(500);
+    })
+  }else{
+    res.sendStatus(403);
+  }
 })
 
 module.exports = router;

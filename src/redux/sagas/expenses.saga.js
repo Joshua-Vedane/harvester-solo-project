@@ -50,11 +50,25 @@ function* updateExpense(action){
   }
 }
 
+function* deleteExpense(action){
+  try {
+    const expenseId = action.payload
+    const response = yield axios.delete(`/api/expenses/delete/${expenseId}`);
+    yield put({type: 'GET_EXPENSES', payload: response.data.project_id});
+
+  }catch(error){
+    console.error(error)
+  }
+}
+
+
+
 function* expensesSaga() {
   yield takeEvery('GET_EXPENSES', getExpenses);
   yield takeEvery('ADD_EXPENSE', addExpense);
   yield takeEvery('GET_EDIT_EXPENSE', getEditExpense)
   yield takeEvery('UPDATE_EXPENSE', updateExpense)
+  yield takeEvery('DELETE_EXPENSE', deleteExpense)
   
 }
 
