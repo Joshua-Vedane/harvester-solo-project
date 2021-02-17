@@ -61,8 +61,6 @@ function* deleteExpense(action){
   }
 }
 
-
-
 function* expensesSaga() {
   yield takeEvery('GET_EXPENSES', getExpenses);
   yield takeEvery('ADD_EXPENSE', addExpense);
