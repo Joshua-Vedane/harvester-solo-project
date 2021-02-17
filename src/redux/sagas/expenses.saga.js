@@ -29,10 +29,32 @@ function * addExpense(action){
   }
 }
 
+function* getEditExpense(action){
+  try {
+    console.log('made it to get edit expense saga');
+    const expenseId = action.payload;
+    const response = yield axios.get(`/api/expenses/edit/${expenseId}`);
+    yield put({type: 'SET_EDIT_EXPENSE', payload: response.data[0] })
+  }catch(err) {
+    console.error(err);
+  }
+}
+
+function* updateExpense(action){
+  try {
+    const response = yield axios.put(`/api/expenses/edit`, action.payload)
+    yield put({type: 'GET_EXPENSES', payload: response.data.project_id})
+
+  }catch(error){
+    console.error(error)
+  }
+}
 
 function* expensesSaga() {
   yield takeEvery('GET_EXPENSES', getExpenses);
   yield takeEvery('ADD_EXPENSE', addExpense);
+  yield takeEvery('GET_EDIT_EXPENSE', getEditExpense)
+  yield takeEvery('UPDATE_EXPENSE', updateExpense)
   
 }
 

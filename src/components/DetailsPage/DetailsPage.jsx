@@ -22,7 +22,7 @@ function DetailsPage() {
       let expenseCost = Number(expense.total)
       total += expenseCost;
     }
-    console.log(total);
+
     return total.toFixed(2); 
   }
   // sumExpenses();
@@ -30,6 +30,8 @@ function DetailsPage() {
   useEffect(() => {
     dispatch({type: 'GET_EXPENSES', payload: page.id})
     dispatch({type: 'GET_PROJECT_INFO', payload: page.id})
+    dispatch({ type: 'GET_CATEGORIES' })
+    dispatch({ type: 'GET_EMPLOYEES' })
   }, [])
   return (
     <>
@@ -64,10 +66,10 @@ function DetailsPage() {
             Bid: $ {projectInfo.bid}
           </Typography>
           <Typography variant='h6' >
-            {sumExpenses()}
+            Expenses: ${sumExpenses()}
           </Typography>
           <Typography variant='h6' >
-            {projectInfo.bid - sumExpenses()} 
+            Net Profit: ${projectInfo.bid - sumExpenses()} 
           </Typography>
 
         </Box>

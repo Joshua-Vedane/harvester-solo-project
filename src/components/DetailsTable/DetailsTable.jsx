@@ -11,7 +11,7 @@ function DetailsTable() {
   const [modalOpen, setModalOpen] =useState(false);
 
   const handleModalOpen = (id) => {
-    // dispatch({type: 'GET_EDIT_EXPENSE', payload: expense.id})
+    dispatch({type: 'GET_EDIT_EXPENSE', payload: id})
     console.log('clicked on edit for', id);
     setModalOpen(true);
   }
