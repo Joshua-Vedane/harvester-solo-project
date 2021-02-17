@@ -26,12 +26,12 @@ export const SidebarData = [
 
     cName: 'nav-text'
   },
-  {
-    title: 'Edit Project',
-    path: '/editproject',
+  // {
+  //   title: 'Edit Project',
+  //   path: '/editproject',
 
-    cName: 'nav-text'
-  },
+  //   cName: 'nav-text'
+  // },
   // {
   //   title: 'Log out',
   //   path: '/editproject',

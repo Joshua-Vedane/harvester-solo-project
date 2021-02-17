@@ -55,6 +55,8 @@ function AddProject() {
         </Box>
       </Box>
       <Card className="add-project-card">
+        <form>
+
         
         <CardContent>
           
@@ -144,6 +146,7 @@ function AddProject() {
             </Button>
           </CardActions>
         </Box>
+        </form>
       </Card>
     </>
   );

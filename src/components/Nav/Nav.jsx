@@ -1,5 +1,6 @@
 // Navigation menu based on https://github.com/briancodex/react-sidebar-v1 
 
+
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
@@ -27,7 +28,6 @@ function Nav() {
   }
 
   const [sidebar, setSidebar] = useState(false);
-
   const showSidebar = () => setSidebar(!sidebar);
 
   // Nav will have essentially two views. One for user logged in and one for not logged in. 
@@ -53,7 +53,7 @@ function Nav() {
                 <AiIcons.AiOutlineClose />
               </Link>
             </li>
-            {/* If user.id is a thing, show the stuff. otherwise nah.  */}
+            {/* If user.id is a thing, show the stuff. otherwise only show logout  */}
            {user.id != null ? 
             SidebarData.map((item, index) => {
               return (
@@ -73,28 +73,7 @@ function Nav() {
             </li>
           </ul>
         </nav>
-       
     </>
-    
-    // <div className="nav">
-    //   <Link to="/home">
-    //     <h2 className="nav-title">Prime Solo Project</h2>
-    //   </Link>
-    //   <div>
-    //     <Link className="navLink" to={loginLinkData.path}>
-    //       {loginLinkData.text}
-    //     </Link>
-
-    //     {user.id && (
-    //       <>
-            
-    //         <LogOutButton className="navLink" />
-    //       </>
-    //     )}
-
-        
-    //   </div>
-    // </div>
   );
 }
 

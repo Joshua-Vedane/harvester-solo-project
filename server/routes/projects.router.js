@@ -48,9 +48,20 @@ router.get('/all', (req, res) => {
 router.post('/', (req, res) => {
   if(req.isAuthenticated()){
     const queryText = `INSERT INTO "projects" ("address_1", "address_2", "bid", "start_date", "image")
-                      VALUES ($1, $2, $3, $4, $5);`;
+                      VALUES ($1, $2, $3, $4, $5) RETURNING "id";`;
     pool.query(queryText, [req.body.address1, req.body.address2, req.body.bidTotal, req.body.dateStart, req.body.imageURL ])
-      .then(() => res.sendStatus(201))
+      .then((result) => {
+        const createdProjectId = result.rows[0].id
+        console.log(req.user.id);
+        const userProjectsQuery = `INSERT INTO "user_projects"("user_id", "project_id") VALUES($1, $2);`;
+        pool.query(userProjectsQuery, [req.user.id, createdProjectId])
+          .then((result) => {
+            res.sendStatus(201);
+          }).catch((error) => {
+            console.log('error in adding to user_projects', error);
+            res.sendStatus(500);
+          })
+      })
       .catch((error) => {
         console.log('Failed adding project', error);
         res.sendStatus(500);
