@@ -53,14 +53,11 @@ function DetailsTable() {
           })}
           </TableBody>
         </Table>
-
       </TableContainer>
       <DetailsModal
         modalOpen={modalOpen}
         handleModalClose={handleModalClose}
       />
-        
-      
     </>
   );
 }

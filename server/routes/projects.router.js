@@ -46,27 +46,34 @@ router.get('/all', (req, res) => {
 
 //add project to DB 
 router.post('/', (req, res) => {
-  
-  const queryText = `INSERT INTO "projects" ("address_1", "address_2", "bid", "start_date", "image")
-                    VALUES ($1, $2, $3, $4, $5);`;
-  pool.query(queryText, [req.body.address1, req.body.address2, req.body.bidTotal, req.body.dateStart, req.body.imageURL ])
-    .then(() => res.sendStatus(201))
-    .catch((error) => {
-      console.log('Failed adding project', error);
-      res.sendStatus(500);
-    })
+  if(req.isAuthenticated()){
+    const queryText = `INSERT INTO "projects" ("address_1", "address_2", "bid", "start_date", "image")
+                      VALUES ($1, $2, $3, $4, $5);`;
+    pool.query(queryText, [req.body.address1, req.body.address2, req.body.bidTotal, req.body.dateStart, req.body.imageURL ])
+      .then(() => res.sendStatus(201))
+      .catch((error) => {
+        console.log('Failed adding project', error);
+        res.sendStatus(500);
+      })
+  }else{
+    res.sendStatus(403);
+  }
 });
 
 //delete project
 router.delete('/delete/:id', (req, res) => {
-  const projectId = req.params.id;
-  const queryText = `DELETE FROM "projects" WHERE "id"= $1; `;
-  pool.query(queryText, [projectId])
-  .then(() => res.sendStatus(200))
-  .catch((err) => {
-    console.log('failed to delete', err);
-    res.sendStatus(500);
-  })
+  if(req.isAuthenticated()){
+    const projectId = req.params.id;
+    const queryText = `DELETE FROM "projects" WHERE "id"= $1; `;
+    pool.query(queryText, [projectId])
+    .then(() => res.sendStatus(200))
+    .catch((err) => {
+      console.log('failed to delete', err);
+      res.sendStatus(500);
+    })
+  }else{
+    res.sendStatus(403);
+  }
 })
 
 module.exports = router;

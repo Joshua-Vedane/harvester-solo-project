@@ -32,6 +32,8 @@ router.post('/', (req, res) => {
         console.log(error);
         res.sendStatus(500);
       })
+  }else{
+    res.sendStatus(403);
   }
 });
 

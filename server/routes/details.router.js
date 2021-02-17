@@ -26,22 +26,21 @@ router.get('/projectInfo/:id', (req, res) => {
 });
 
 
-router.post('/', (req, res) => {
-  // POST route code here
-});
-
-// "address_1", "address_2", "bid", "start_date", "image"
+// edit project details 
 router.put('/updateProject/:id', (req,res) => {
-  const projectId = req.params.id;
-  const queryText = `UPDATE "projects" SET "address_1" = $1, "address_2" = $2, "bid" = $3, "start_date" = $4, "image"= $5 WHERE "id" = $6;`;
-  pool.query(queryText, [req.body.address_1, req.body.address_2, req.body.bid, req.body.start_date, req.body.image, projectId])
-  .then((result) => {
-    res.sendStatus(200);
-  }).catch((error) => {
-    console.log(error);
-    res.sendStatus(500);
-  })
-  
+  if(req.isAuthenticated()){
+    const projectId = req.params.id;
+    const queryText = `UPDATE "projects" SET "address_1" = $1, "address_2" = $2, "bid" = $3, "start_date" = $4, "image"= $5 WHERE "id" = $6;`;
+    pool.query(queryText, [req.body.address_1, req.body.address_2, req.body.bid, req.body.start_date, req.body.image, projectId])
+    .then((result) => {
+      res.sendStatus(200);
+    }).catch((error) => {
+      console.log(error);
+      res.sendStatus(500);
+    })
+  }else{
+    res.sendStatus(403);
+  }
 })
   
 
