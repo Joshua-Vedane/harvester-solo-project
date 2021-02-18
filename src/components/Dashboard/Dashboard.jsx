@@ -18,7 +18,7 @@ function UserPage() {
     <Grid className='project-container' container spacing={4} justify="center">
       {projects.map((project) => {
         return(
-          <Grid className='project-item' item xs={12} key={project.id}>
+          <Grid className='project-item' item xs={12}  key={project.id}>
             <DashboardItems project={project} />
           </Grid>
         )

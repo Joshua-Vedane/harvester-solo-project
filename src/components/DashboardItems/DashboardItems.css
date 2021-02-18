@@ -3,3 +3,14 @@
   max-width: 70vw;
   margin: 0 auto;
 }
+
+.project-image-container {
+  max-width: 200px;
+  max-height: 275px;
+  margin: 0 auto;
+}
+
+.project-image{
+  display: inline-block;
+  width: 100%;
+}

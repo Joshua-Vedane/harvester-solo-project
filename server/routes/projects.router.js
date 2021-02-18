@@ -10,7 +10,8 @@ router.get('/', (req, res) => {
     let queryText = `SELECT "projects".id, "projects".address_1, "projects".address_2, "projects".bid, "projects".start_date, "projects".image FROM "users" 
     JOIN "user_projects" ON  "users".id = "user_projects".user_id
     JOIN "projects" ON "projects".id = "user_projects".project_id
-    WHERE "users".id = $1;
+    WHERE "users".id = $1
+    ORDER BY "projects".id DESC;
     `
     pool.query(queryText, [req.user.id])
     .then((result) => {

@@ -29,6 +29,7 @@ function DashboardItems({project}) {
   }
 
   useEffect(() => dispatch({type:'GET_PROJECTS'}), []);
+  const image = 'documentation/images/laurel.jpg';
   return (
     <>
       <Card className='project-card-item' >
@@ -38,8 +39,9 @@ function DashboardItems({project}) {
             
           </Typography>
         </Box>
-        <Box>
-          <img src='/documentation/images/dayton_close.jpg'  />
+        <Box className='project-image-container'>
+          <img className='project-image' src='images/laurel.jpg' align='center'/>
+          {/* <img src={image}  /> */}
         </Box>
         <Box>
           <Typography variant='h5' align='center'>

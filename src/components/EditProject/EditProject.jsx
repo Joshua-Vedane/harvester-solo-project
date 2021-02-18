@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, TextField, Button, Card, CardContent, CardActions, InputLabel, FormControl } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
+import './EditProject.css'
 
 
 function EditProject() {

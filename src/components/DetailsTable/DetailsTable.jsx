@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, TextField, Button, Card, CardContent, CardActions, InputLabel, FormControl, Select, MenuItem, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Modal } from '@material-ui/core';
+import { Box, Typography, TextField, Button, Card, CardContent, CardActions, InputLabel, FormControl, Select, MenuItem, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Modal, Paper } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams  } from 'react-router-dom';
 import DetailsModal from '../DetailsModal/DetailsModal';
@@ -26,8 +26,8 @@ function DetailsTable() {
   
   return (
     <>
-      <TableContainer>
-        <Table stickyheader>
+      <TableContainer component={Paper}>
+        <Table size='small' stickyheader>
           <TableHead>
             <TableRow>
               <TableCell>Category</TableCell>
@@ -46,8 +46,8 @@ function DetailsTable() {
                 <TableCell>{expense.description}</TableCell>
                 <TableCell>{expense.date}</TableCell>
                 <TableCell>{expense.total}</TableCell>
-                <TableCell><Button  onClick={() => handleModalOpen(expense.id)}>Edit</Button></TableCell>
-                <TableCell><Button onClick={()=>handleDelete(expense.id)}>Delete</Button></TableCell>
+                <TableCell><Button variant="outlined" onClick={() => handleModalOpen(expense.id)}>Edit</Button></TableCell>
+                <TableCell><Button variant="outlined" onClick={()=>handleDelete(expense.id)}>Delete</Button></TableCell>
               </TableRow>
             )
           })}
