@@ -11,13 +11,14 @@ const useStyles = makeStyles({
     justifyContent: 'center',
   }, 
   modal_body: {
-    width: '75vw',
+    width: '50vw',
     padding: '15px',
     display: 'flex', 
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#f4f4f4',
+    borderRadius: '5px',
   }
 });
 function DetailsModal(props) {
@@ -68,12 +69,14 @@ function DetailsModal(props) {
         >
         <Box className={classes.modal_body}>
           
-            <Box m={1} fullWidth={true}>
+            <Box m={2}  width='80%'>
               <FormControl variant='outlined' fullWidth={true}>
+                <InputLabel
+                  m={1}
+                  htmlFor="category-select-label"
+                >Select Category</InputLabel>
                 <Select
-                  label="Select Category"
-                  InputLabelProps={{shrink: editExpense.category_id}}
-                  fullWidth={true}
+                  label='Select Category'
                   value={editExpense.category_id}
                   onChange={(event) => {dispatch({type: 'SET_EDIT_EXPENSE', payload: {...editExpense, category_id: event.target.value}})}}
                 >
@@ -88,7 +91,7 @@ function DetailsModal(props) {
             {/* // If category selected is 'wage', show different inputs */}
             {editExpense.category_id != '4' ?
             <>
-            <Box m={1}>
+            <Box m={1} width='80%'>
               <FormControl variant='outlined' fullWidth={true}>
                 <TextField
                   label="Description"
@@ -101,7 +104,7 @@ function DetailsModal(props) {
                 </TextField>
               </FormControl>
             </Box>
-            <Box m={1}>
+            <Box m={1} width='80%'>
               <FormControl variant='outlined' fullWidth={true}>
                 <TextField
                   label="Date"
@@ -114,7 +117,7 @@ function DetailsModal(props) {
                 </TextField>
               </FormControl>
             </Box>
-            <Box m={1}>
+            <Box m={1} width='80%'>
               <FormControl variant='outlined' fullWidth={true}>
                 <TextField
                   label="Total"
@@ -131,11 +134,13 @@ function DetailsModal(props) {
             :
             // display if wage is selected
             <>
-            <Box m={1}>
+            <Box m={1} width='80%'>
               <FormControl variant = 'outlined' fullWidth={true}>
-                
+                <InputLabel>
+                  Select Employee
+                  </InputLabel>
                 <Select
-                label='Employee'
+                label='Select Employee'
                 fullWidth={true}
                 onChange={(event) => {dispatch({type: 'SET_EDIT_EXPENSE', payload: {...editExpense, description: event.target.value.user_name}}); setHourlyRate(event.target.value.hourly_rate)}}
                 >
@@ -147,7 +152,7 @@ function DetailsModal(props) {
                 </Select>
               </FormControl>
             </Box>
-            <Box m={1}>
+            <Box m={1} width='80%'>
               <FormControl variant='outlined' fullWidth={true}>
                 <TextField
                   label="Date"
@@ -160,7 +165,7 @@ function DetailsModal(props) {
                 </TextField>
               </FormControl>
             </Box>
-            <Box m={1}>
+            <Box m={1} width='80%'>
               <FormControl variant = 'outlined' fullWidth={true}>
                 <TextField
                   label= 'Hours'
@@ -172,7 +177,7 @@ function DetailsModal(props) {
                 </TextField>
               </FormControl>
             </Box>
-            <Box m={1}>
+            <Box m={1} width='80%'>
               <FormControl variant = 'outlined' fullWidth={true}>
                 <TextField
                   label= 'TOTAL'

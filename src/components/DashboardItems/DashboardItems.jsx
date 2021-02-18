@@ -4,6 +4,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {Card, Button, Box, Typography, } from '@material-ui/core';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import './DashboardItems.css';
 
 
 
@@ -30,7 +31,7 @@ function DashboardItems({project}) {
   useEffect(() => dispatch({type:'GET_PROJECTS'}), []);
   return (
     <>
-      <Card >
+      <Card className='project-card-item' >
         <Box>
           <Typography variant='h4' align='center'>
             {project.address_1}
@@ -38,7 +39,7 @@ function DashboardItems({project}) {
           </Typography>
         </Box>
         <Box>
-          <img src={project.image} />
+          <img src='/documentation/images/dayton_close.jpg'  />
         </Box>
         <Box>
           <Typography variant='h5' align='center'>

@@ -1,8 +1,6 @@
 .project-info-container {
   display: flex;
   flex-direction: row;
-  
-  
 }
 
 .project-info{
@@ -15,4 +13,12 @@
 
 .project-image{
   width: 50vw;
+}
+
+.project-calculations{
+  margin: 1rem 1rem 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  
 }

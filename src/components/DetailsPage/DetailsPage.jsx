@@ -16,6 +16,7 @@ function DetailsPage() {
   //expenses will go into the detailsTable component. 
   const expenses = useSelector((store) => store.expenses)
 
+  //calculate expenses total
   const sumExpenses = () => {
     let total = 0;
     for (const expense of expenses) {
@@ -25,7 +26,12 @@ function DetailsPage() {
 
     return total.toFixed(2); 
   }
-  // sumExpenses();
+
+  //calculate net profit
+  const netProfit = () => {
+    let total = (projectInfo.bid - sumExpenses());
+    return total.toFixed(2);
+  }
 
   useEffect(() => {
     dispatch({type: 'GET_EXPENSES', payload: page.id})
@@ -37,7 +43,6 @@ function DetailsPage() {
     <>
     {projectInfo.address_1 && (
       <Box className='details-container'>
-
         <Box className='project-info-container'>
           <Box className='project-info'>
             <Typography variant='h6' align='center'>
@@ -49,31 +54,25 @@ function DetailsPage() {
             <Typography variant='h6' align='center'>
               Start Date: {projectInfo.start_date}
             </Typography>
-            
           </Box>
           <Box className='project-image'>
             <img src={projectInfo.image} alt=""/>
           </Box>
         </Box>
-        
-
+        {/* Displays the table of expenses */}
         <DetailsTable>
-
         </DetailsTable>
-
-        <Box display='flex' flexDirection='column' alignItems='flex-end'>
+        <Box className='project-calculations' >
           <Typography variant='h6' >
-            Bid: $ {projectInfo.bid}
+            Bid: ${projectInfo.bid}
           </Typography>
           <Typography variant='h6' >
             Expenses: ${sumExpenses()}
           </Typography>
           <Typography variant='h6' >
-            Net Profit: ${projectInfo.bid - sumExpenses()} 
+            Net Profit: ${netProfit()} 
           </Typography>
-
         </Box>
-      
       </Box>
     )}  
     </>

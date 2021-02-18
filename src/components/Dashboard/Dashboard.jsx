@@ -4,6 +4,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import DashboardItems from '../DashboardItems/DashboardItems';
 import { Grid } from '@material-ui/core';
 import { useEffect } from 'react';
+import './Dashboard.css';
 
 function UserPage() {
   const dispatch = useDispatch();
@@ -14,10 +15,10 @@ function UserPage() {
   console.log(projects);
   useEffect(() => dispatch({type:'GET_PROJECTS'}), []);
   return (
-    <Grid container spacing={4} justify="center">
+    <Grid className='project-container' container spacing={4} justify="center">
       {projects.map((project) => {
         return(
-          <Grid item xs={12} key={project.id}>
+          <Grid className='project-item' item xs={12} key={project.id}>
             <DashboardItems project={project} />
           </Grid>
         )

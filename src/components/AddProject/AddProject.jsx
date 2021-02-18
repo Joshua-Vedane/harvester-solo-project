@@ -54,15 +54,9 @@ function AddProject() {
           </Box>
         </Box>
       </Box>
-      <Card className="add-project-card">
-        <form>
-
-        
-        <CardContent>
-          
+      <Card className="add-project-card"> 
+        <CardContent>   
         <Box m={2}>
-
-          
             <FormControl variant='outlined' fullWidth={true}>
               <TextField
                 label='Address 1'
@@ -126,9 +120,7 @@ function AddProject() {
               >
               </TextField>
             </FormControl>
-          </Box>
-          
-          
+          </Box>  
         </CardContent>
         <Box display="flex" justifyContent="center">
           <CardActions>
@@ -146,7 +138,6 @@ function AddProject() {
             </Button>
           </CardActions>
         </Box>
-        </form>
       </Card>
     </>
   );

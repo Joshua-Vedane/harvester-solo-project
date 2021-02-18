@@ -74,12 +74,14 @@ function JoinProject() {
             <FormControl variant='outlined' fullWidth={true}>
 
               <InputLabel
-                id="employee-number-label"
+                m={1}
+                htmlFor="employee-number-label"
               >Employee</InputLabel>
               <Select
+                label='Employee'
                 labelId="employee-number"
                 fullWidth={true}
-                id="employee-number-select"
+                id="employee-number-label"
                 value={employeeId}
                 onChange={handleEmployeeSelect}
               >
@@ -99,6 +101,7 @@ function JoinProject() {
                 id="project-number-label"
               >Project</InputLabel>
               <Select
+                label='Project'
                 labelId="project-number"
                 fullWidth={true}
                 id="project-number-select"
