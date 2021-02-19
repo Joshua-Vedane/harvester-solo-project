@@ -13,7 +13,7 @@ function AddProject() {
   const [address1, setAddress1] = useState('');
   const [address2, setAddress2] = useState('');
   const [bidTotal, setBidTotal] = useState('');
-  const [imageURL, setImageURL] = useState('');
+  const [imageURL, setImageURL] = useState('images/placeholder.png');
   const [dateStart, setDateStart] = useState('');
 
   const handleSubmit = () => {

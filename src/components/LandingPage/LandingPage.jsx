@@ -18,8 +18,8 @@ function LandingPage() {
 
 
     
-    <Grid container spacing={1} >
-      <Grid item xs={12}>
+    <Grid  container spacing={1}  >
+      <Grid item xs={12} >
         <RegisterForm/>
       </Grid>
       <Grid item xs={12}>

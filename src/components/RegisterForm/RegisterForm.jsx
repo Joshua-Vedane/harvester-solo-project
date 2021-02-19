@@ -24,8 +24,8 @@ function RegisterForm() {
 
 
   return (
-    <Box className='formPanel' display="flex" flexDirection='column' justifyContent='center' alignItems='center'>
-      {/* <form className="formPanel" onSubmit={registerUser}> */}
+    <Box className='formPanel' display="flex" flexDirection='column' justifyContent='center' alignItems='center' mt={4}>
+      
         <Box >
           <h2>Register User</h2>
           {errors.registrationMessage && (
@@ -79,7 +79,7 @@ function RegisterForm() {
             onClick={registerUser}
             >Submit</Button>
         </Box>
-      {/* </form> */}
+      
     </Box>
   );
 }
