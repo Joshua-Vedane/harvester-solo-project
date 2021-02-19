@@ -28,7 +28,7 @@ function DetailsTable() {
     <>
       <TableContainer component={Paper}>
         <Table size='small' stickyheader>
-          <TableHead>
+          <TableHead >
             <TableRow>
               <TableCell>Category</TableCell>
               <TableCell>Description</TableCell>

@@ -34,31 +34,30 @@ function DashboardItems({project}) {
     <>
       <Card className='project-card-item' >
         <Box>
-          <Typography variant='h4' align='center'>
+          <Typography variant='h5' align='center'>
             {project.address_1}
             
           </Typography>
         </Box>
         <Box className='project-image-container'>
-          <img className='project-image' src='images/laurel.jpg' align='center'/>
-          {/* <img src={image}  /> */}
+          <img className='project-image' src={project.image} align='center'/>
         </Box>
         <Box>
-          <Typography variant='h5' align='center'>
-            {project.start_date}
+          <Typography variant='h6' align='center'>
+            Start Date: {project.start_date}
           </Typography>
         </Box>
         <Box>
-          <Typography variant='h5' align='center'>
-            ${project.bid}
+          <Typography variant='h6' align='center'>
+            Bid Total: ${project.bid}
           </Typography>
         </Box>
-        <Box display='flex' justifyContent='center' alignItems='center'>
-          <Box >
-            <Button onClick={handleEdit} variant='contained'>Edit</Button>
+        <Box display='flex' justifyContent='center' alignItems='center' m={2}>
+          <Box mr={2}>
+            <Button onClick={handleEdit} variant='contained' color='primary'>Edit</Button>
           </Box>
-          <Box>
-            <Button onClick={handleDetails} variant='contained'>Details</Button>
+          <Box ml={2} >
+            <Button onClick={handleDetails} variant='contained' color='secondary'>Details</Button>
           </Box>
         </Box>
       </Card>

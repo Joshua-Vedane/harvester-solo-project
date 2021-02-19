@@ -10,7 +10,7 @@ router.get('/:id', (req, res) => {
     const projectId = req.params.id
     let queryText = `SELECT "project_expenses".id, "project_expenses".project_id, "project_expenses".category_id, "project_expenses".description, "project_expenses".date, "project_expenses".total, "categories".category_name FROM "project_expenses"
     JOIN "categories" ON "categories".id = "project_expenses".category_id
-    WHERE "project_id" = $1;`;
+    WHERE "project_id" = $1 ORDER BY "project_expenses".id;`;
     
 
     pool.query(queryText, [projectId])
