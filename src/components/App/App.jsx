@@ -25,6 +25,7 @@ import AddProject from '../AddProject/AddProject';
 import AddExpense from '../AddExpense/AddExpense';
 import EditProject from '../EditProject/EditProject';
 import './App.css';
+import {ThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 
 function App() {
   const dispatch = useDispatch();
@@ -34,7 +35,22 @@ function App() {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);
 
+  const theme = createMuiTheme({
+    palette : {
+      primary: {
+        main: '#0f6fc9',
+      },
+      secondary: {
+        // main: teal[500]
+        main: '#a52d3f',
+      }
+    }
+  })
+
   return (
+    <ThemeProvider theme={theme}>
+
+    
     <Router>
       <div>
         {/* for the navbar, could do a condo render with if (user.id = null) then don't display the navBar? 
@@ -162,6 +178,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+    </ThemeProvider>
   );
 }
 
