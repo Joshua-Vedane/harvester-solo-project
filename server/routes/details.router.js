@@ -10,7 +10,8 @@ router.get('/projectInfo/:id', (req, res) => {
     //do the things
     const projectId = req.params.id
     let queryText = `SELECT * FROM "projects" 
-    WHERE "id" = $1;`
+    WHERE "id" = $1 
+    ORDER BY "projects".id DESC;`;
 
     pool.query(queryText, [projectId])
     .then((result) => {

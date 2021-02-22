@@ -30,7 +30,7 @@ router.get('/', (req, res) => {
 router.get('/all', (req, res) => {
   if(req.isAuthenticated()){
     //do the things
-    let queryText = `SELECT * FROM "projects";`;
+    let queryText = `SELECT * FROM "projects" ORDER BY "projects".id DESC;`;
     pool.query(queryText)
     .then((result) => {
       res.send(result.rows)

@@ -27,7 +27,7 @@ function DetailsTable() {
   return (
     <>
       <TableContainer component={Paper}>
-        <Table size='small' stickyheader>
+        <Table size='small' stickyHeader>
           <TableHead >
             <TableRow>
               <TableCell>Category</TableCell>
@@ -46,8 +46,8 @@ function DetailsTable() {
                 <TableCell>{expense.description}</TableCell>
                 <TableCell>{expense.date}</TableCell>
                 <TableCell>{expense.total}</TableCell>
-                <TableCell><Button variant="outlined" onClick={() => handleModalOpen(expense.id)}>Edit</Button></TableCell>
-                <TableCell><Button variant="outlined" onClick={()=>handleDelete(expense.id)}>Delete</Button></TableCell>
+                <TableCell><Button variant="outlined" color='primary' onClick={() => handleModalOpen(expense.id)}>Edit</Button></TableCell>
+                <TableCell><Button variant="outlined" color='secondary' onClick={()=>handleDelete(expense.id)}>Delete</Button></TableCell>
               </TableRow>
             )
           })}
