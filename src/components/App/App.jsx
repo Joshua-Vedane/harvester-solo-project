@@ -41,7 +41,6 @@ function App() {
         main: '#0f6fc9',
       },
       secondary: {
-        // main: teal[500]
         main: '#a52d3f',
       }
     }
