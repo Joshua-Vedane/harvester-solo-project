@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, TextField, Button, Card, CardContent, CardActions, InputLabel, FormControl } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-// import AddProjectForm from '../AddProjectForm/AddProjectForm';
 import './AddProject.css';
 
 
@@ -29,12 +28,14 @@ function AddProject() {
     }
     dispatch(action);
     clearInputs();
-    // should I stay or should I go? 
+    history.push('/dashboard') 
+    // confirm notification
   }
 
   const handleCancel = () => {
     clearInputs();
     history.push('/dashboard');
+    // cancel notification
   }
 
   const clearInputs = () => {

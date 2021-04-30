@@ -1,46 +1,34 @@
 
 import React, { useState } from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {Card, Button, Box, Typography, } from '@material-ui/core';
+import { useSelector, useDispatch } from 'react-redux';
+import { Card, Button, Box, Typography, } from '@material-ui/core';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import './DashboardItems.css';
 
-
-
-function DashboardItems({project}) {
-
+function DashboardItems({ project }) {
   const dispatch = useDispatch();
   const history = useHistory();
-  
 
-  //Clicking on Edit Button routes to Edit Project
-  function handleEdit () {
-    // Get details for clicked project 
-    // dispatch({type: 'GET_PROJECT_DETAILS', payload: project.id})
-    history.push({pathname:`/editproject/${project.id}`})
+  function handleEdit() {
+    history.push({ pathname: `/editproject/${project.id}` })
   }
 
-  //Clicking on Details Button routes to Project Details
-  // This will be similiar to the above. 
-  function handleDetails () {
-
-    history.push({pathname: `/details/${project.id}`})
+  function handleDetails() {
+    history.push({ pathname: `/details/${project.id}` })
   }
 
-  useEffect(() => dispatch({type:'GET_PROJECTS'}), []);
-  const image = 'documentation/images/laurel.jpg';
+  useEffect(() => dispatch({ type: 'GET_PROJECTS' }), []);
   return (
     <>
       <Card className='project-card-item' >
         <Box>
           <Typography variant='h5' align='center'>
             {project.address_1}
-            
           </Typography>
         </Box>
         <Box className='project-image-container'>
-          <img className='project-image' src={project.image} align='center'/>
+          <img className='project-image' src={project.image} align='center' />
         </Box>
         <Box>
           <Typography variant='h6' align='center'>

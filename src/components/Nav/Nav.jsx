@@ -3,10 +3,7 @@
 
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
-import LogOutButton from '../LogOutButton/LogOutButton';
-// import './Nav.css';
 import {useSelector, useDispatch} from 'react-redux';
-
 import * as AiIcons from 'react-icons/ai';
 import * as FaIcons from 'react-icons/fa';
 import { SidebarData } from './NavData.js';
@@ -29,11 +26,6 @@ function Nav() {
 
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
-
-  // Nav will have essentially two views. One for user logged in and one for not logged in. 
-  // Logged in users will have the ability to go anywhere at anytime. Stretch goal to condo render shit based on where they at. 
-
-  //Nav may be contained within a header. I don't know yet. 
   return (
     <>
       <div className='navbar'>

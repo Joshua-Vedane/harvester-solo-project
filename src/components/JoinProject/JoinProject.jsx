@@ -10,16 +10,14 @@ function JoinProject() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // Get projects Reducer
   const allProjects = useSelector((store) => store.allProjects)
-  // get employees Reducer
   const employees = useSelector((store) => store.employees)
-  // local state for inputs (selects)
+
   const [employeeId, setEmployeeId] = useState('');
   const [projectId, setProjectId] = useState('');
 
-  console.log('employeeId is now:', employeeId);
-  console.log('projectId is now:', projectId);
+  // console.log('employeeId is now:', employeeId);
+  // console.log('projectId is now:', projectId);
 
   const handleEmployeeSelect = (event) => {
     setEmployeeId(event.target.value);
@@ -28,8 +26,6 @@ function JoinProject() {
     setProjectId(event.target.value);
   }
 
-  // handle submit. this will end up through the employees router
-  // dispatch will go to employeesSaga for now. 
   const handleSubmit = () => {
     const action = {
       type: 'ADD_EMPLOYEE_TO_PROJECT',
@@ -40,13 +36,12 @@ function JoinProject() {
     }
     dispatch(action);
     clearInputs();
-    // history.push('/dashboard'); ?? Really want to re-route? 
+    history.push('/dashboard'); // submit confirmation
   }
 
-  //cancel add and route back to dashboard
   const handleCancel = () => {
     clearInputs();
-    history.push('/dashboard');
+    history.push('/dashboard'); // cancel confirmation
   }
 
   //clear state 
@@ -58,7 +53,7 @@ function JoinProject() {
   useEffect(() => dispatch({ type: 'GET_EMPLOYEES' }), []);
   // Get projects (all of them)
   useEffect(() => dispatch({ type: 'GET_ALL_PROJECTS' }), []);
-  
+
   return (
     <>
       <Box height={50} p={3}>
@@ -72,7 +67,6 @@ function JoinProject() {
         <CardContent>
           <Box>
             <FormControl variant='outlined' fullWidth={true}>
-
               <InputLabel
                 m={1}
                 htmlFor="employee-number-label"
@@ -93,10 +87,8 @@ function JoinProject() {
               </Select>
             </FormControl>
           </Box>
-
           <Box mt={2}>
             <FormControl variant='outlined' fullWidth={true} m={1}>
-
               <InputLabel
                 id="project-number-label"
               >Project</InputLabel>
@@ -116,9 +108,7 @@ function JoinProject() {
               </Select>
             </FormControl>
           </Box>
-
         </CardContent>
-
         <Box display="flex" justifyContent="center">
           <CardActions>
             <Button

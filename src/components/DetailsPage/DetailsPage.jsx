@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, TextField, Button, Card, CardContent, CardActions, InputLabel, FormControl, Select, MenuItem } from '@material-ui/core';
+import { Box, Typography, } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams  } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import './DetailsPage.css';
 
 import DetailsTable from '../DetailsTable/DetailsTable'
@@ -13,7 +13,6 @@ function DetailsPage() {
   const history = useHistory();
 
   const projectInfo = useSelector((store) => store.projectInfo)
-  //expenses will go into the detailsTable component. 
   const expenses = useSelector((store) => store.expenses)
 
   //calculate expenses total
@@ -23,8 +22,7 @@ function DetailsPage() {
       let expenseCost = Number(expense.total)
       total += expenseCost;
     }
-
-    return total.toFixed(2); 
+    return total.toFixed(2);
   }
 
   //calculate net profit
@@ -34,47 +32,47 @@ function DetailsPage() {
   }
 
   useEffect(() => {
-    dispatch({type: 'GET_EXPENSES', payload: page.id})
-    dispatch({type: 'GET_PROJECT_INFO', payload: page.id})
+    dispatch({ type: 'GET_EXPENSES', payload: page.id })
+    dispatch({ type: 'GET_PROJECT_INFO', payload: page.id })
     dispatch({ type: 'GET_CATEGORIES' })
     dispatch({ type: 'GET_EMPLOYEES' })
   }, [])
   return (
     <>
-    {projectInfo.address_1 && (
-      <Box className='details-container'>
-        <Box  className='project-info-container'>
-          <Box className='project-info'>
-            <Typography variant='subtitle1' align='center'>
-              {projectInfo.address_1}
+      {projectInfo.address_1 && (
+        <Box className='details-container'>
+          <Box className='project-info-container'>
+            <Box className='project-info'>
+              <Typography variant='subtitle1' align='center'>
+                {projectInfo.address_1}
+              </Typography>
+              <Typography variant='subtitle1' align='center'>
+                {projectInfo.address_2}
+              </Typography>
+              <Typography variant='subtitle1' align='center'>
+                Start Date: {projectInfo.start_date}
+              </Typography>
+            </Box>
+            <Box className='details-image-container'>
+              <img className='details-image' src={projectInfo.image} align='center' alt="" />
+            </Box>
+          </Box>
+          {/* Displays the table of expenses */}
+          <DetailsTable>
+          </DetailsTable>
+          <Box className='project-calculations' >
+            <Typography variant='h6' >
+              Bid: ${projectInfo.bid}
             </Typography>
-            <Typography variant='subtitle1' align='center'>
-              {projectInfo.address_2}
+            <Typography variant='h6' >
+              Expenses: ${sumExpenses()}
             </Typography>
-            <Typography variant='subtitle1' align='center'>
-              Start Date: {projectInfo.start_date}
+            <Typography variant='h6' >
+              Net Profit: ${netProfit()}
             </Typography>
           </Box>
-          <Box className='details-image-container'>
-            <img className='details-image' src={projectInfo.image} align='center' alt=""/>
-          </Box>
         </Box>
-        {/* Displays the table of expenses */}
-        <DetailsTable>
-        </DetailsTable>
-        <Box className='project-calculations' >
-          <Typography variant='h6' >
-            Bid: ${projectInfo.bid}
-          </Typography>
-          <Typography variant='h6' >
-            Expenses: ${sumExpenses()}
-          </Typography>
-          <Typography variant='h6' >
-            Net Profit: ${netProfit()} 
-          </Typography>
-        </Box>
-      </Box>
-    )}  
+      )}
     </>
   );
 }

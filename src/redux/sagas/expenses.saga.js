@@ -6,57 +6,48 @@ import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 function* getExpenses(action) {
   try {
     const projectId = action.payload;
-      //go and get expenses
-      //the cookie comes along automatically
-      const response = yield axios.get(`/api/expenses/${projectId}`);
-      console.log(response.data)
-      //save in details reducer
-      yield put({type: 'SET_EXPENSES', payload: response.data })
-
+    const response = yield axios.get(`/api/expenses/${projectId}`);
+    // console.log(response.data)
+    yield put({ type: 'SET_EXPENSES', payload: response.data })
   } catch (err) {
-      console.error(err)
+    console.error(err)
   }
 }
 
-function * addExpense(action){
+function* addExpense(action) {
   try {
-    console.log('made it to addExpense Saga');
     const newExpense = action.payload;
     yield axios.post('/api/expenses', newExpense);
-    // yield put({type: 'GET_EXPENSES'})
-  }catch(error){
+  } catch (error) {
     console.error(error);
   }
 }
 
-function* getEditExpense(action){
+function* getEditExpense(action) {
   try {
-    console.log('made it to get edit expense saga');
     const expenseId = action.payload;
     const response = yield axios.get(`/api/expenses/edit/${expenseId}`);
-    yield put({type: 'SET_EDIT_EXPENSE', payload: response.data[0] })
-  }catch(err) {
+    yield put({ type: 'SET_EDIT_EXPENSE', payload: response.data[0] })
+  } catch (err) {
     console.error(err);
   }
 }
 
-function* updateExpense(action){
+function* updateExpense(action) {
   try {
     const response = yield axios.put(`/api/expenses/edit`, action.payload)
-    yield put({type: 'GET_EXPENSES', payload: response.data.project_id})
-
-  }catch(error){
+    yield put({ type: 'GET_EXPENSES', payload: response.data.project_id })
+  } catch (error) {
     console.error(error)
   }
 }
 
-function* deleteExpense(action){
+function* deleteExpense(action) {
   try {
     const expenseId = action.payload
     const response = yield axios.delete(`/api/expenses/delete/${expenseId}`);
-    yield put({type: 'GET_EXPENSES', payload: response.data.project_id});
-
-  }catch(error){
+    yield put({ type: 'GET_EXPENSES', payload: response.data.project_id });
+  } catch (error) {
     console.error(error)
   }
 }
@@ -67,7 +58,7 @@ function* expensesSaga() {
   yield takeEvery('GET_EDIT_EXPENSE', getEditExpense)
   yield takeEvery('UPDATE_EXPENSE', updateExpense)
   yield takeEvery('DELETE_EXPENSE', deleteExpense)
-  
+
 }
 
 export default expensesSaga;

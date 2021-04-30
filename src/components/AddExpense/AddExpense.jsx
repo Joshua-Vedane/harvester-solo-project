@@ -1,7 +1,3 @@
-// This is disgusting and I know it. If I have time, I will break forms into separate components.
-// Ideally, wages would be completely separate from other expenses, getting their own view and table... 
-// Also, employeeId is not needed...
-
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, TextField, Button, Card, CardContent, CardActions, InputLabel, FormControl, Select, MenuItem } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
@@ -40,7 +36,7 @@ function AddExpense() {
     }
     dispatch(action);
     clearInputs();
-    // history.push('/dashboard'); ?? Really want to re-route? 
+    history.push('/dashboard'); // add confirm notifications 
   }
   const handleSubmit = () => {
     const action = {
@@ -55,6 +51,7 @@ function AddExpense() {
     }
     dispatch(action);
     clearInputs();
+    history.push('/dashboard'); // add confirm notifications
   }
 
   const handleCancel = () => {
@@ -138,15 +135,13 @@ function AddExpense() {
             </Select>
           </FormControl>
         </Box>
-        {/* If category selected is 'wage' (4), show something different.  */}
+        {/* WAGE INPUT  */}
       {categoryId != '4' ? 
         <>
         <Box m={2}>
             <FormControl variant='outlined' fullWidth={true}>
-             
               <TextField
                 label="Description"
-                // InputLabelProps={{ shrink: projectInfo.address_1 }}
                 fullWidth={true}
                 id="description-input"
                 name="description"
@@ -187,7 +182,7 @@ function AddExpense() {
           </Box>
         </>
         : 
-        // HEYYYYYYYYYYYYYYYHEYYYYYYYYYYYYYYYHEYYYYYYYYYYYYYYYHEYYYYYYYYYYYYYYYHEYYYYYYYYYYYYYYYHEYYYYYYYYYYYYYYYHEYYYYYYYYYYYYYYY
+        // NON WAGE INPUT (EQUIPMENT, MATERIALS, PERMIT)
         <>
         <Box m={2}>
             <FormControl variant='outlined' fullWidth={true}>
@@ -198,15 +193,10 @@ function AddExpense() {
                 labelId="employee-select"
                 fullWidth={true}
                 id="employee-select-input"
-                
-                // onChange={(event) => {setEmployeeId(event.target.value.id)}}
-                // onChange={(event) => {setHourlyRate(event.target.value.hourly_rate)}}
                 onChange={ handleChange}
-                
               >
                 {employees.map((employee) => {
                   return (
-                    // <MenuItem key={employee.id} value={{id: employee.id, hourly_rate: employee.hourly_rate}}>{employee.user_name}</MenuItem>
                     <MenuItem key={employee.id} value={employee}>{employee.user_name}</MenuItem>
                   )
                 })}
