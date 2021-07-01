@@ -21,7 +21,7 @@ function DashboardItems({ project }) {
   useEffect(() => dispatch({ type: 'GET_PROJECTS' }), []);
   return (
     <>
-      <Card className='project-card-item' >
+      <Card className='card' >
         <Box>
           <Typography variant='h5' align='center'>
             {project.address_1}
@@ -40,7 +40,7 @@ function DashboardItems({ project }) {
             Bid Total: ${project.bid}
           </Typography>
         </Box>
-        <Box display='flex' justifyContent='center' alignItems='center' m={2}>
+        <Box display='flex' justifyContent='center' m={2}>
           <Box mr={2}>
             <Button onClick={handleEdit} variant='contained' color='primary'>Edit</Button>
           </Box>

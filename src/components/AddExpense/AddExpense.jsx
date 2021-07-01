@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, TextField, Button, Card, CardContent, CardActions, InputLabel, FormControl, Select, MenuItem } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import './AddExpense.css'
+
 
 
 function AddExpense() {
@@ -91,7 +91,7 @@ function AddExpense() {
         </Box>
       </Box>
 
-      <Card className="add-expense-card">
+      <Card className="card">
         <CardContent>
         <Box mt={2}>
           <FormControl variant='outlined' fullWidth={true} m={1}>

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, TextField, Button, Card, CardContent, CardActions, Select, InputLabel, MenuItem, FormControl } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import './JoinProject.css';
+
 
 
 function JoinProject() {
@@ -63,7 +63,7 @@ function JoinProject() {
           </Box>
         </Box>
       </Box>
-      <Card className="join-card">
+      <Card className="card">
         <CardContent>
           <Box>
             <FormControl variant='outlined' fullWidth={true}>
