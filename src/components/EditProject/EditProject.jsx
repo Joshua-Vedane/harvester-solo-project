@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, TextField, Button, Card, CardContent, CardActions, FormControl } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import './EditProject.css'
+
 
 
 function EditProject() {
@@ -50,7 +50,7 @@ function EditProject() {
       </Box>
       {/* Only renders the card when projectDetails.id has a truthy value */}
       {projectInfo.id && (
-        <Card className="edit-project-card">
+        <Card className="card">
           <CardContent>
             <Box m={2}>
               <FormControl variant='outlined' fullWidth={true}>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, TextField, Button, Card, CardContent, CardActions, InputLabel, FormControl } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import './AddProject.css';
+
 
 
 function AddProject() {
@@ -55,7 +55,7 @@ function AddProject() {
           </Box>
         </Box>
       </Box>
-      <Card className="add-project-card"> 
+      <Card className="card"> 
         <CardContent>   
         <Box m={2}>
             <FormControl variant='outlined' fullWidth={true}>
