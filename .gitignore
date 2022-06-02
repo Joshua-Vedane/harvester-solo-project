@@ -65,8 +65,7 @@ typings/
 .env
 
 # ignore package-lock as it complicates merging
-#testing some stuff
-#package-lock.json
+package-lock.json
 
 # general/misc. 
 todos.md
